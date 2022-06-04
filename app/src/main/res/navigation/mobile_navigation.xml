@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_patient_registration"
+            app:destination="@id/nav_patient_registration" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_new_consult"
+            app:destination="@id/nav_consult_registration" />
+        <action
+            android:id="@+id/action_nav_home_to_consultListFragment"
+            app:destination="@id/nav_consult_list" />
+        <action
+            android:id="@+id/action_nav_home_to_hospitalActivityFragment"
+            app:destination="@id/hospitalActivityFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_patient_registration"
+        android:name="lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.patientregister.PatientRegisterFragment"
+        android:label="@string/menu_patient_registration"
+        tools:layout="@layout/fragment_patient_register" />
+
+    <fragment
+        android:id="@+id/nav_consult_registration"
+        android:name="lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.newconsult.NewConsultFragment"
+        android:label="Consult nou"
+        tools:layout="@layout/fragment_new_consult" />
+    <fragment
+        android:id="@+id/nav_consult_list"
+        android:name="lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.consultlist.ConsultListFragment"
+        android:label="fragment_consult_list"
+        tools:layout="@layout/fragment_consult_list" >
+        <action
+            android:id="@+id/action_nav_consult_list_to_dialogConsultFragment"
+            app:destination="@id/nav_consult_details" />
+    </fragment>
+    <fragment
+        android:id="@+id/hospitalActivityFragment"
+        android:name="lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.hospitalactivity.HospitalActivityFragment"
+        android:label="fragment_hospital_activity"
+        tools:layout="@layout/fragment_hospital_activity" />
+    <fragment
+        android:id="@+id/nav_consult_details"
+        android:name="lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.consultlist.DialogConsultFragment"
+        android:label="fragment_dialog_consult"
+        tools:layout="@layout/fragment_dialog_consult" >
+        <action
+            android:id="@+id/action_dialogConsultFragment_to_nav_consult_list"
+            app:destination="@id/nav_consult_list" />
+    </fragment>
+</navigation>

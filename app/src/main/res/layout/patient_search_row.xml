@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/spacing_medium">
+
+    <TextView
+        android:id="@+id/tv_fisa_nr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fisa Nr."
+        android:textColor="@color/grey_90"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+        />
+    <TextView
+        android:id="@+id/tv_detalii"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nume Pacient, varsta"
+        android:textColor="@color/grey_60"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        />
+
+</LinearLayout>
