@@ -27,7 +27,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Va uram o zi plina de reusite"
+        android:text="Vă urăm o zi plină de reușite"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         android:textSize="@dimen/spacing_large"
         android:textColor="@color/grey_90"
@@ -40,13 +40,14 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:orientation="vertical"
+
         android:theme="@style/ThemeOverlay.AppCompat.Light">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/spacing_xxlarge"
-            android:layout_margin="@dimen/spacing_mlarge"
+            android:layout_height="@dimen/spacing_xxslarge"
+            android:layout_margin="@dimen/spacing_large"
             android:clipToPadding="false"
             app:cardBackgroundColor="@android:color/white"
             app:cardCornerRadius="25dp"
@@ -57,16 +58,13 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <View
-                    android:layout_width="@dimen/spacing_medium"
-                    android:layout_height="0dp" />
-
                 <ImageButton
                     android:id="@+id/bt_mic"
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
                     android:background="@android:color/transparent"
                     android:clickable="true"
+                    android:layout_marginRight=""
                     app:srcCompat="@drawable/ic_search"
                     app:tint="@color/grey_60" />
 
@@ -75,7 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
-                    android:hint="Cauta fisa medicala"
+                    android:hint="Caută fișă medicală"
                     android:completionThreshold="1"
                     android:maxLines="1"
                     android:singleLine="true"/>
@@ -88,11 +86,7 @@
 
         </androidx.cardview.widget.CardView>
 
-<!--            <TextView-->
-<!--                android:id="@+id/dummyView"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_centerHorizontal="true" />-->
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -106,20 +100,19 @@
                 android:clickable="true"
                 android:tint="@color/colorPrimary"
                 app:backgroundTint="@android:color/white"
-                app:elevation="4dp"
                 app:fabSize="normal"
                 app:rippleColor="@android:color/white"
                 app:srcCompat="@drawable/ic_qr_code" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_toRightOf="@id/fab_qr"
-            android:layout_height="wrap_content"
-            android:tint="@color/colorPrimary"
-            android:layout_marginRight="@dimen/spacing_large"
-            app:backgroundTint="@android:color/white"
-            app:srcCompat="@drawable/ic_search" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/spacing_large"
+                android:layout_toRightOf="@id/fab_qr"
+                android:tint="@color/colorPrimary"
+                app:backgroundTint="@android:color/white"
+                app:srcCompat="@drawable/ic_search" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -131,6 +124,8 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:selectableItemBackground"
+        android:outlineSpotShadowColor="@color/colorPrimary"
+        app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="25dp"
         app:cardElevation="3dp"
         app:cardUseCompatPadding="true">
@@ -164,14 +159,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_medium"
                 android:layout_marginTop="10dp"
-                android:text="Fise medicale active"
-                android:textSize="@dimen/spacing_slarge"
+                android:text="Fișe medicale active"
+                android:textSize="21dp"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/grey_80"
+                android:textColor="@color/grey_10"
                 app:fontFamily="sans-serif-medium" />
             <View
                 android:layout_width="0dp"
-                android:layout_height="@dimen/spacing_large" />
+                android:layout_height="@dimen/spacing_medium" />
 
         </LinearLayout>
 
@@ -180,18 +175,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/spacing_llarge"
+        android:paddingTop="@dimen/spacing_small"
         android:orientation="horizontal"
         android:gravity="center_horizontal">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/new_patient_button"
-            android:layout_width="185dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:visibility="visible"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:selectableItemBackground"
+            android:outlineSpotShadowColor="@color/colorPrimary"
+
             app:cardCornerRadius="25dp"
             app:cardElevation="3dp"
             app:cardUseCompatPadding="true">
@@ -226,7 +223,7 @@
                     android:layout_marginBottom="@dimen/spacing_medium"
                     android:layout_marginTop="45dp"
                     android:text="Pacient nou"
-                    android:textSize="@dimen/spacing_slarge"
+                    android:textSize="@dimen/spacing_mlarge"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/grey_80"
                     app:fontFamily="sans-serif-medium" />
@@ -239,15 +236,16 @@
         </androidx.cardview.widget.CardView>
 
         <View
-            android:layout_width="@dimen/spacing_xxlarge"
+            android:layout_width="@dimen/spacing_mlarge"
             android:layout_height="0dp" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/new_consult_button"
-            android:layout_width="185dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:foreground="?android:selectableItemBackground"
+            android:outlineSpotShadowColor="@color/colorPrimary"
             app:cardCornerRadius="25dp"
             app:cardElevation="3dp"
             app:cardUseCompatPadding="true">
@@ -282,7 +280,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/spacing_medium"
                     android:layout_marginTop="45dp"
-                    android:textSize="@dimen/spacing_slarge"
+                    android:textSize="@dimen/spacing_mlarge"
                     android:text="Consult nou"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/grey_80"
@@ -299,7 +297,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/spacing_large" />
+        android:layout_height="@dimen/spacing_small" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -309,11 +307,12 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/consult_list_button"
-            android:layout_width="185dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:visibility="visible"
             android:clickable="true"
             android:foreground="?android:selectableItemBackground"
+            android:outlineSpotShadowColor="@color/colorPrimary"
             app:cardCornerRadius="25dp"
             app:cardElevation="3dp"
             app:cardUseCompatPadding="true">
@@ -349,7 +348,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/spacing_medium"
                     android:layout_marginTop="45dp"
-                    android:textSize="@dimen/spacing_slarge"
+                    android:textSize="@dimen/spacing_mlarge"
                     android:text="Consulturile mele"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/grey_80"
@@ -364,17 +363,18 @@
         </androidx.cardview.widget.CardView>
 
         <View
-            android:layout_width="@dimen/spacing_xxlarge"
+            android:layout_width="@dimen/spacing_mlarge"
             android:layout_height="0dp" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/hospital_activity_button"
-            android:layout_width="185dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:visibility="visible"
             android:clickable="true"
             app:cardCornerRadius="25dp"
             android:foreground="?android:selectableItemBackground"
+            android:outlineSpotShadowColor="@color/colorPrimary"
             app:cardElevation="3dp"
             app:cardUseCompatPadding="true">
 
@@ -412,7 +412,7 @@
                     android:text="Disponibilitate"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/grey_80"
-                    android:textSize="@dimen/spacing_slarge"
+                    android:textSize="@dimen/spacing_mlarge"
                     app:fontFamily="sans-serif-medium" />
                 <View
                     android:layout_width="0dp"

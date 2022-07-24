@@ -1,6 +1,7 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="spacing_xxxxlarge">100dp</dimen>
+    <dimen name="spacing_xxslarge">55dp</dimen>
     <dimen name="spacing_xxlarge">50dp</dimen>
     <dimen name="spacing_xlarge">35dp</dimen>
     <dimen name="spacing_llarge">25dp</dimen>
