@@ -15,11 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,7 +25,7 @@ import java.util.stream.Collectors;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import lucrare.dizertatie.dizertatiemobile.R;
-import lucrare.dizertatie.dizertatiemobile.adapters.AdapterListConsult;
+import lucrare.dizertatie.dizertatiemobile.adapters.ConsultListAdapter;
 import lucrare.dizertatie.dizertatiemobile.databinding.FragmentConsultListBinding;
 import lucrare.dizertatie.dizertatiemobile.model.doctormodel.Consult;
 import lucrare.dizertatie.dizertatiemobile.model.enums.Status;
@@ -35,24 +33,16 @@ import lucrare.dizertatie.dizertatiemobile.util.SharedPreferencesUtil;
 
 public class ConsultListFragment extends Fragment {
 
-//    @BindView(android.R.id.content)
-//    View parentView;
     @BindView(R.id.consultRecyclerView)
     RecyclerView recyclerView;
-//    @BindView(R.id.tab_layout)
     TabLayout tabLayout;
-//    @BindView(R.id.tab_accepted)
-//    TabItem tabAccepted;
-//    @BindView(R.id.tab_history)
-//    TabItem tabHistory;
-//    @BindView(R.id.tab_waiting)
-//    TabItem tabWaiting;
+
 
 
     private FragmentConsultListBinding binding;
 
     private ConsultListViewModel mViewModel;
-    private AdapterListConsult adapter;
+    private ConsultListAdapter adapter;
     private List<Consult> items = new ArrayList<>();
     private Integer doctor;
 
@@ -83,16 +73,13 @@ public class ConsultListFragment extends Fragment {
 
     private void initComponent(List<Consult> consults) {
         //adapter here
-        adapter = new AdapterListConsult(consults, getContext(), R.layout.item_consult_card);
+        adapter = new ConsultListAdapter(consults, R.layout.item_consult_card);
         recyclerView.setAdapter(adapter);
 
-        adapter.setOnItemClickListener(new AdapterListConsult.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, Consult obj, int position) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("consult", obj);
-                Navigation.findNavController(view).navigate(R.id.action_nav_consult_list_to_dialogConsultFragment, bundle);
-            }
+        adapter.setOnItemClickListener((view, obj, position) -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("consult", obj);
+            Navigation.findNavController(view).navigate(R.id.action_nav_consult_list_to_dialogConsultFragment, bundle);
         });
     }
 

@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_nav_home_to_hospitalActivityFragment"
             app:destination="@id/hospitalActivityFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_patientMedicalHistoryFragment"
+            app:destination="@id/patientMedicalHistoryFragment" />
     </fragment>
 
     <fragment
@@ -58,4 +61,9 @@
             android:id="@+id/action_dialogConsultFragment_to_nav_consult_list"
             app:destination="@id/nav_consult_list" />
     </fragment>
+    <fragment
+        android:id="@+id/patientMedicalHistoryFragment"
+        android:name="lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.patientmedicalhistory.PatientMedicalHistoryFragment"
+        android:label="fragment_patient_medical_history"
+        tools:layout="@layout/fragment_patient_medical_history" />
 </navigation>

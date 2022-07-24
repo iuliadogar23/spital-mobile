@@ -3,7 +3,11 @@ package lucrare.dizertatie.dizertatiemobile.model.pacientmodel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class StarePacient {
+import java.io.Serializable;
+
+import lucrare.dizertatie.dizertatiemobile.model.enums.Stare;
+
+public class StarePacient implements Serializable {
 
     @SerializedName("av")
     @Expose
@@ -31,7 +35,7 @@ public class StarePacient {
     private String sato2;
     @SerializedName("starePacient")
     @Expose
-    private String starePacient;
+    private Stare starePacient;
     @SerializedName("ta")
     @Expose
     private String ta;
@@ -103,11 +107,11 @@ public class StarePacient {
         this.sato2 = sato2;
     }
 
-    public String getStarePacient() {
+    public Stare getStarePacient() {
         return starePacient;
     }
 
-    public void setStarePacient(String starePacient) {
+    public void setStarePacient(Stare starePacient) {
         this.starePacient = starePacient;
     }
 

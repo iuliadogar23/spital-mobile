@@ -5,8 +5,10 @@ import android.content.Context;
 import java.util.List;
 
 import lucrare.dizertatie.dizertatiemobile.api.service.FisaMedicalaApiService;
+import lucrare.dizertatie.dizertatiemobile.api.service.NotificareApiService;
 import lucrare.dizertatie.dizertatiemobile.api.service.SpitalApiService;
 import lucrare.dizertatie.dizertatiemobile.model.doctormodel.Consult;
+import lucrare.dizertatie.dizertatiemobile.model.notificare.Notificare;
 import lucrare.dizertatie.dizertatiemobile.util.Constants;
 import lucrare.dizertatie.dizertatiemobile.util.SharedPreferencesUtil;
 import okhttp3.Cache;
@@ -21,6 +23,8 @@ public class ApiHelper {
     private SpitalApiService spitalApiService;
 
     private FisaMedicalaApiService fisaMedicalaApiService;
+
+    private NotificareApiService notificareApiService;
 
     public ApiHelper(Context context) {
 
@@ -46,6 +50,7 @@ public class ApiHelper {
                 .build();
         spitalApiService = retrofit.create(SpitalApiService.class);
         fisaMedicalaApiService = retrofit.create(FisaMedicalaApiService.class);
+        notificareApiService = retrofit.create(NotificareApiService.class);
     }
 
     public Call<List<Object>> findConsultsBy(Integer doctorId) {
@@ -62,6 +67,14 @@ public class ApiHelper {
 
     public Call<List<Object>> getAllDoctors() {
         return spitalApiService.getAllDoctors();
+    }
+
+    public Call<Object> saveNotificare(Notificare notificare) {
+        return notificareApiService.saveNotificare(notificare);
+    }
+
+    public Call<List<Object>> getAllNotificare() {
+        return notificareApiService.getAllNotificare();
     }
 
 }

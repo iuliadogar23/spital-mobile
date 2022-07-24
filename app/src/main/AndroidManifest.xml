@@ -14,7 +14,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".PatientViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.addpatientpage.PatientActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.loginpage.LoginActivity"
             android:exported="true"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar">
@@ -26,7 +32,7 @@
         </activity>
         <activity
             android:name=".ui.mainpage.MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

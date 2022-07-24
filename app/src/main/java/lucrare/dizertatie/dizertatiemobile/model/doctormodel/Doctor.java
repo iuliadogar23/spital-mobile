@@ -5,8 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-import lucrare.dizertatie.dizertatiemobile.model.Cont;
-
 public class Doctor implements Serializable {
 
     @SerializedName("adresa")

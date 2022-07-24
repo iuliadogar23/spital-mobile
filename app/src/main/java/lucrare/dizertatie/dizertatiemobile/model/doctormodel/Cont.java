@@ -1,4 +1,4 @@
-package lucrare.dizertatie.dizertatiemobile.model;
+package lucrare.dizertatie.dizertatiemobile.model.doctormodel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

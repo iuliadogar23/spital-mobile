@@ -3,7 +3,9 @@ package lucrare.dizertatie.dizertatiemobile.model.pacientmodel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Pacient {
+import java.io.Serializable;
+
+public class Pacient implements Serializable {
 
     @SerializedName("id")
     @Expose

@@ -3,6 +3,7 @@ package lucrare.dizertatie.dizertatiemobile.model.pacientmodel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 import lucrare.dizertatie.dizertatiemobile.model.enums.IstoricPatologic;
@@ -10,7 +11,7 @@ import lucrare.dizertatie.dizertatiemobile.model.enums.Procedura;
 import lucrare.dizertatie.dizertatiemobile.model.enums.ScorNaca;
 import lucrare.dizertatie.dizertatiemobile.model.enums.Triaj;
 
-public class FisaMedicala {
+public class FisaMedicala implements Serializable {
 
 
     @SerializedName("nrFisa")

@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_large"
                 android:paddingLeft="@dimen/spacing_large"
-                android:text="Dr. cum il cheama"
+                android:text="Dr. Popescu Mihai Adrian"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textColor="@color/grey_40"
                 app:layout_constraintTop_toBottomOf="@+id/tv_titlu_doctor" />

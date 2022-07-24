@@ -3,7 +3,9 @@ package lucrare.dizertatie.dizertatiemobile.model.pacientmodel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Analize {
+import java.io.Serializable;
+
+public class Analize implements Serializable {
 
     @SerializedName("denumire")
     @Expose

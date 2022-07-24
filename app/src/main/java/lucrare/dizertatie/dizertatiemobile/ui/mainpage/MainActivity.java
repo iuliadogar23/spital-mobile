@@ -1,7 +1,13 @@
 package lucrare.dizertatie.dizertatiemobile.ui.mainpage;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -10,11 +16,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -26,12 +27,11 @@ import lucrare.dizertatie.dizertatiemobile.R;
 import lucrare.dizertatie.dizertatiemobile.databinding.ActivityMainBinding;
 import lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.consultlist.ConsultListFragment;
 import lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.home.HomeFragment;
-import lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.patientregister.PatientRegisterFragment;
 import lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.newconsult.NewConsultFragment;
+import lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.notification.NotificationFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ActionBar actionBar;
     @BindView(R.id.nav_view)
     public NavigationView navigationView;
     public DrawerLayout drawerLayout;
@@ -52,14 +52,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initToolbar() {
-//        actionBar = getSupportActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setHomeButtonEnabled(true);
-//        actionBar.setTitle("");
+
         setSupportActionBar(binding.appBarGeneral.toolbar);
         getSupportActionBar().setTitle("");
         appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_patient_registration, R.id.nav_consult_registration, R.id.nav_consult_list)
+                R.id.nav_home, R.id.nav_patient_registration, R.id.nav_consult_registration, R.id.nav_consult_list, R.id.patientMedicalHistoryFragment) //poate aici vine notification nav daca faci idk
                 .setOpenableLayout(drawerLayout)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_general);
@@ -102,6 +99,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int item_id = item.getItemId();
+        if (item_id == R.id.action_notifications) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+            getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.nav_host_fragment_content_general, new NotificationFragment()).addToBackStack(null).commit();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onClick(View view) {
 
         switch(view.getId()) {
@@ -111,12 +118,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_content_general, new HomeFragment()).addToBackStack(null).commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
-            case R.id.menu_patient_register:
-                getSupportFragmentManager().popBackStack();
-                navigationView.setCheckedItem(R.id.nav_patient_registration);
-                drawerLayout.closeDrawer(GravityCompat.START);
-                getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.nav_host_fragment_content_general, new PatientRegisterFragment()).addToBackStack(null).commit();
-                break;
+//            case R.id.menu_patient_register:
+//                getSupportFragmentManager().popBackStack();
+//                navigationView.setCheckedItem(R.id.nav_patient_registration);
+//                drawerLayout.closeDrawer(GravityCompat.START);
+//                getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.nav_host_fragment_content_general, new PatientRegisterFragment()).addToBackStack(null).commit();
+//                break;
             case R.id.menu_patient_search:
                 getSupportFragmentManager().popBackStack();
                 navigationView.setCheckedItem(R.id.nav_consult_registration);

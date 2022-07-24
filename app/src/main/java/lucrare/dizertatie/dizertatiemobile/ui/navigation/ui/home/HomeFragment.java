@@ -2,15 +2,10 @@ package lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +27,7 @@ import lucrare.dizertatie.dizertatiemobile.R;
 import lucrare.dizertatie.dizertatiemobile.adapters.PatientSearchAdapter;
 import lucrare.dizertatie.dizertatiemobile.databinding.FragmentHomeBinding;
 import lucrare.dizertatie.dizertatiemobile.model.pacientmodel.FisaMedicala;
+import lucrare.dizertatie.dizertatiemobile.ui.addpatientpage.PatientActivity;
 
 
 public class HomeFragment extends Fragment {
@@ -45,6 +41,8 @@ public class HomeFragment extends Fragment {
     CardView consultListButton;
     @BindView(R.id.hospital_activity_button)
     CardView hospitalActivityButton;
+    @BindView(R.id.view_patient_button)
+    CardView patientMedicalHistoryButton;
     @BindView(R.id.et_search)
     AutoCompleteTextView search;
     @BindView(R.id.fab)
@@ -75,7 +73,12 @@ public class HomeFragment extends Fragment {
 
     private void setNavigationToOptions(View view)
     {
-        newPatientButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_nav_home_to_nav_patient_registration));
+        newPatientButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), PatientActivity.class);
+            startActivity(intent);
+        });
+
+        patientMedicalHistoryButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.patientMedicalHistoryFragment));
 
         newConsultButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_nav_home_to_nav_new_consult));
 

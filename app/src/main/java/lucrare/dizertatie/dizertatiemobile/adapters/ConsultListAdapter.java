@@ -1,6 +1,5 @@
 package lucrare.dizertatie.dizertatiemobile.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,23 +9,15 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.Gson;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import lucrare.dizertatie.dizertatiemobile.R;
 import lucrare.dizertatie.dizertatiemobile.model.doctormodel.Consult;
-import lucrare.dizertatie.dizertatiemobile.model.doctormodel.Doctor;
 import lucrare.dizertatie.dizertatiemobile.util.Utils;
 
-public class AdapterListConsult extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class ConsultListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    private List<Consult> items = new ArrayList<>();
-
-    private Context ctx;
+    private List<Consult> items;
 
     @LayoutRes
     private int layout_id;
@@ -41,9 +32,8 @@ public class AdapterListConsult extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.onItemClickListener = mItemClickListener;
     }
 
-    public AdapterListConsult(List<Consult> items, Context ctx, int layout_id) {
+    public ConsultListAdapter(List<Consult> items, int layout_id) {
         this.items = items;
-        this.ctx = ctx;
         this.layout_id = layout_id;
 
     }

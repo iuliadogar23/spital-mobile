@@ -6,9 +6,8 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="?android:windowBackground"
-    tools:context=".ui.navigation.ui.patientregister.PatientRegisterFragment">
-
-
+    tools:context=".ui.viewpatientpage.PatientViewActivity"
+    android:orientation="horizontal">
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -34,24 +33,6 @@
             app:tabSelectedTextColor="@android:color/white"
             app:tabTextAppearance="@style/TextAppearance.AppCompat.Body2"
             app:tabTextColor="@color/grey_60">
-
-<!--            <com.google.android.material.tabs.TabItem-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@android:color/transparent"-->
-<!--                android:text="Programari" />-->
-
-<!--            <com.google.android.material.tabs.TabItem-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@android:color/transparent"-->
-<!--                android:text="In asteptare" />-->
-
-<!--            <com.google.android.material.tabs.TabItem-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@android:color/transparent"-->
-<!--                android:text="Istoric" />-->
 
         </com.google.android.material.tabs.TabLayout>
 

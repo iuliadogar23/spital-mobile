@@ -1,4 +1,4 @@
-package lucrare.dizertatie.dizertatiemobile.ui.login;
+package lucrare.dizertatie.dizertatiemobile.ui.loginpage;
 
 import android.app.Application;
 
