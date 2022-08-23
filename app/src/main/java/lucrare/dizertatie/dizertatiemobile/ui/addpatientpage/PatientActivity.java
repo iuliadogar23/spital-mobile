@@ -44,20 +44,22 @@ public class PatientActivity extends AppCompatActivity {
     }
 
     private void setupViewPager() {
+        //getChildFragmentManager?
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        new Handler().post(() -> {
 
-            viewPagerAdapter.addFragment(PatientDetailsFragment.newInstance(), "Pacient");
-            viewPagerAdapter.addFragment(StateFragment.newInstance(), "Stare");
-            viewPagerAdapter.addFragment(PathologicalBackgroundFragment.newInstance(), "Antecedente");
-            viewPagerAdapter.addFragment(TriageFragment.newInstance(), "Triaj");
-            viewPagerAdapter.addFragment(EkgFragment.newInstance(), "Observatii");
-            viewPagerAdapter.addFragment(AnalysisFragment.newInstance(), "Analize");
-            viewPagerAdapter.addFragment(RecommendationFragment.newInstance(), "Recomandari");
+        viewPagerAdapter.addFragment(PatientDetailsFragment.newInstance(), "Pacient");
+        viewPagerAdapter.addFragment(StateFragment.newInstance(), "Stare");
+        viewPagerAdapter.addFragment(PathologicalBackgroundFragment.newInstance(), "Antecedente");
+        viewPagerAdapter.addFragment(TriageFragment.newInstance(), "Triaj");
+        viewPagerAdapter.addFragment(EkgFragment.newInstance(), "Observatii");
+        viewPagerAdapter.addFragment(AnalysisFragment.newInstance(), "Analize");
+        viewPagerAdapter.addFragment(RecommendationFragment.newInstance(), "Recomandari");
 
-            viewPager.setAdapter(viewPagerAdapter);
-            tabLayout.setupWithViewPager(viewPager);
-        });
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
 
     }
 
