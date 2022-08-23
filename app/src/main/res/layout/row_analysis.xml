@@ -1,18 +1,602 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/spacing_llarge"
+    android:paddingTop="@dimen/spacing_medium"
+    android:paddingRight="@dimen/spacing_llarge"
+    android:paddingBottom="@dimen/spacing_xxlarge"
+    tools:context=".ui.addpatientpage.ui.patientdetails.AnalysisFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:textSize="@dimen/spacing_slarge"
-        android:text="Analize"
-        />
+        android:orientation="horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Hct"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Hb"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="H"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="H"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="T"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Na"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="K"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Cl"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ca"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Glicemie"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Uree"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Creatina"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="GOT/AST"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="GPT/ALT"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Amilaze"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="pH"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="HCO3"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="paO2"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="paCO2"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="BE"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Bilirubina T"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Bilirubina D"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="CK"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="CK-MB"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="ProBNP"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mioglobina"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Troponinal"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mlarge"
+            android:textColorHint="@color/colorPrimaryText"
+            android:layout_weight="1">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="paCO2"
+                android:textColor="@color/grey_80"
+                android:maxLines="1"
+                android:theme="@style/Autocomplete"
+                android:singleLine="true"
+                android:text=" " />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+</LinearLayout>

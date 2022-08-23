@@ -21,4 +21,13 @@
         <item name="android:textColorPrimary">@color/grey_60</item>
     </style>
 
+    <style name="Autocomplete">
+        <item name="colorControlNormal">@color/colorPrimaryText</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+    </style>
+
+    <style name="Naming">
+        <item name="colorControlNormal">@color/zxing_transparent</item>
+        <item name="colorControlActivated">@color/zxing_transparent</item>
+    </style>
 </resources>

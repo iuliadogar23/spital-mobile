@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#FF8D2020</color>
     <color name="colorNavigation">#913B3B</color>
+    <color name="colorPrimaryText">#610707</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="grey_5">#f2f2f2</color>

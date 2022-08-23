@@ -64,7 +64,6 @@
                     android:layout_height="?attr/actionBarSize"
                     android:background="@android:color/transparent"
                     android:clickable="true"
-                    android:layout_marginRight=""
                     app:srcCompat="@drawable/ic_search"
                     app:tint="@color/grey_60" />
 
