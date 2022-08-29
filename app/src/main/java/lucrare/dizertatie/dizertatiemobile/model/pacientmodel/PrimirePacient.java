@@ -15,10 +15,10 @@ public class PrimirePacient implements Serializable {
     private String preluatDe;
     @SerializedName("dataOra")
     @Expose
-    private Integer dataOra;
+    private Long dataOra;
     @SerializedName("oraPrimConsult")
     @Expose
-    private Integer oraPrimConsult;
+    private Long oraPrimConsult;
     @SerializedName("motivulPrezentarii")
     @Expose
     private String motivulPrezentarii;
@@ -48,19 +48,19 @@ public class PrimirePacient implements Serializable {
         this.preluatDe = preluatDe;
     }
 
-    public Integer getDataOra() {
+    public Long getDataOra() {
         return dataOra;
     }
 
-    public void setDataOra(Integer dataOra) {
+    public void setDataOra(Long dataOra) {
         this.dataOra = dataOra;
     }
 
-    public Integer getOraPrimConsult() {
+    public Long getOraPrimConsult() {
         return oraPrimConsult;
     }
 
-    public void setOraPrimConsult(Integer oraPrimConsult) {
+    public void setOraPrimConsult(Long oraPrimConsult) {
         this.oraPrimConsult = oraPrimConsult;
     }
 

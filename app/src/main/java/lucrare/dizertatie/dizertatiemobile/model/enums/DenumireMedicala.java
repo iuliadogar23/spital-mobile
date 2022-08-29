@@ -1,0 +1,32 @@
+package lucrare.dizertatie.dizertatiemobile.model.enums;
+
+public enum DenumireMedicala {
+    Hct,
+    Hb,
+    H12,
+    H13,
+    T,
+    Na,
+    K,
+    Cl,
+    Ca,
+    Glicemie,
+    Uree,
+    Creatinina,
+    GOT_AST,
+    GPT_ALT,
+    Amilaze,
+    pH,
+    HCO3,
+    paO2,
+    paCO2,
+    BE,
+    Bilirubina_T,
+    Biliribina_D,
+    CK,
+    CK_MB,
+    ProBNP,
+    Troponinal,
+    Mioglobina,
+    D_dimer;
+}

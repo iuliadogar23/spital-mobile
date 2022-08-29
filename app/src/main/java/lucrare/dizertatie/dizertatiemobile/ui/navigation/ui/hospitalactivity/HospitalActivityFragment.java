@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pubnub.api.PubNub;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,8 @@ import lucrare.dizertatie.dizertatiemobile.adapters.DoctorActivityAdapter;
 import lucrare.dizertatie.dizertatiemobile.databinding.FragmentConsultListBinding;
 import lucrare.dizertatie.dizertatiemobile.databinding.FragmentHospitalActivityBinding;
 import lucrare.dizertatie.dizertatiemobile.model.doctormodel.Doctor;
+import lucrare.dizertatie.dizertatiemobile.ui.mainpage.MainActivity;
+import lucrare.dizertatie.dizertatiemobile.util.SharedPreferencesUtil;
 
 public class HospitalActivityFragment extends Fragment {
 
@@ -34,6 +38,8 @@ public class HospitalActivityFragment extends Fragment {
     private HospitalActivityViewModel mViewModel;
     private FragmentHospitalActivityBinding binding;
     private List<Doctor> items = new ArrayList<>();
+    private PubNub pubNub;
+    SharedPreferencesUtil sharedPreferencesUtil;
 
     public static HospitalActivityFragment newInstance() {
         return new HospitalActivityFragment();
@@ -45,6 +51,8 @@ public class HospitalActivityFragment extends Fragment {
         binding = FragmentHospitalActivityBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         ButterKnife.bind(this, root);
+        sharedPreferencesUtil = SharedPreferencesUtil.getInstance(getContext());
+        pubNub = ((MainActivity)getActivity()).getmPubnub_DataStream();
 
         setupViewModel();
         initComponent();
@@ -61,10 +69,10 @@ public class HospitalActivityFragment extends Fragment {
     private void setupViewModel()
     {
         mViewModel = new ViewModelProvider(this).get(HospitalActivityViewModel.class);
-        mViewModel.getAllDoctors().observe(getViewLifecycleOwner(), doctorResponse -> {
+        mViewModel.getAllDoctors().observe(getActivity(), doctorResponse -> {
             if (doctorResponse!=null && doctorResponse.getDoctorList()!=null)
                 items.addAll(doctorResponse.getDoctorList());
-            adapter = new DoctorActivityAdapter(items, getContext(), R.layout.item_doctor_activity);
+            adapter = new DoctorActivityAdapter(items, getContext(), R.layout.item_doctor_activity, pubNub, sharedPreferencesUtil);
             recyclerView.setAdapter(adapter);
 
         });

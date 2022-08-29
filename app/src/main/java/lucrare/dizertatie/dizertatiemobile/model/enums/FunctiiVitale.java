@@ -24,4 +24,12 @@ public enum FunctiiVitale {
         return nume;
     }
 
+    public static FunctiiVitale getByNume(String description)
+    {
+        for (FunctiiVitale f: FunctiiVitale.values())
+            if (f.getNume().equals(description))
+                return f;
+        return null;
+    }
+
 }

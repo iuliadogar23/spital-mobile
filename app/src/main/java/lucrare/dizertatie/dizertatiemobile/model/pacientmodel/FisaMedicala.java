@@ -8,7 +8,6 @@ import java.util.List;
 
 import lucrare.dizertatie.dizertatiemobile.model.enums.IstoricPatologic;
 import lucrare.dizertatie.dizertatiemobile.model.enums.Procedura;
-import lucrare.dizertatie.dizertatiemobile.model.enums.ScorNaca;
 import lucrare.dizertatie.dizertatiemobile.model.enums.Triaj;
 
 public class FisaMedicala implements Serializable {
@@ -29,9 +28,12 @@ public class FisaMedicala implements Serializable {
     @SerializedName("starePacient")
     @Expose
     private List<StarePacient> starePacient = null;
+    @SerializedName("scorGlagow")
+    @Expose
+    private List<ScorGlagow> scorGlagow = null;
     @SerializedName("scorNaca")
     @Expose
-    private ScorNaca scorNaca;
+    private String scorNaca;
     @SerializedName("antecedentePatologice")
     @Expose
     private List<IstoricPatologic> antecedentePatologice = null;
@@ -95,6 +97,9 @@ public class FisaMedicala implements Serializable {
     @SerializedName("decizie")
     @Expose
     private String decizie;
+    @SerializedName("doctorAsignat")
+    @Expose
+    private Integer doctorAsignat;
 
     public Integer getNrFisa() {
         return nrFisa;
@@ -136,11 +141,19 @@ public class FisaMedicala implements Serializable {
         this.starePacient = starePacient;
     }
 
-    public ScorNaca getScorNaca() {
+    public List<ScorGlagow> getScorGlagow() {
+        return scorGlagow;
+    }
+
+    public void setScorGlagow(List<ScorGlagow> scorGlagow) {
+        this.scorGlagow = scorGlagow;
+    }
+
+    public String getScorNaca() {
         return scorNaca;
     }
 
-    public void setScorNaca(ScorNaca scorNaca) {
+    public void setScorNaca(String scorNaca) {
         this.scorNaca = scorNaca;
     }
 
@@ -312,4 +325,11 @@ public class FisaMedicala implements Serializable {
         this.decizie = decizie;
     }
 
+    public Integer getDoctorAsignat() {
+        return doctorAsignat;
+    }
+
+    public void setDoctorAsignat(Integer doctorAsignat) {
+        this.doctorAsignat = doctorAsignat;
+    }
 }

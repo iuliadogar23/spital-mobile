@@ -1,5 +1,8 @@
 package lucrare.dizertatie.dizertatiemobile.model.pacientmodel;
 
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,14 +10,14 @@ import java.io.Serializable;
 
 import lucrare.dizertatie.dizertatiemobile.model.enums.Stare;
 
-public class StarePacient implements Serializable {
+public class StarePacient extends BaseObservable implements Serializable {
 
     @SerializedName("av")
     @Expose
     private String av;
     @SerializedName("dataOra")
     @Expose
-    private Integer dataOra;
+    private Long dataOra;
     @SerializedName("frRes")
     @Expose
     private String frRes;
@@ -35,7 +38,7 @@ public class StarePacient implements Serializable {
     private String sato2;
     @SerializedName("starePacient")
     @Expose
-    private Stare starePacient;
+    private String starePacient;
     @SerializedName("ta")
     @Expose
     private String ta;
@@ -43,6 +46,7 @@ public class StarePacient implements Serializable {
     @Expose
     private String temp;
 
+    @Bindable
     public String getAv() {
         return av;
     }
@@ -51,14 +55,16 @@ public class StarePacient implements Serializable {
         this.av = av;
     }
 
-    public Integer getDataOra() {
+    @Bindable
+    public Long getDataOra() {
         return dataOra;
     }
 
-    public void setDataOra(Integer dataOra) {
+    public void setDataOra(Long dataOra) {
         this.dataOra = dataOra;
     }
 
+    @Bindable
     public String getFrRes() {
         return frRes;
     }
@@ -67,6 +73,7 @@ public class StarePacient implements Serializable {
         this.frRes = frRes;
     }
 
+    @Bindable
     public String getFunctiiVitale() {
         return functiiVitale;
     }
@@ -75,6 +82,7 @@ public class StarePacient implements Serializable {
         this.functiiVitale = functiiVitale;
     }
 
+    @Bindable
     public String getGli() {
         return gli;
     }
@@ -83,6 +91,7 @@ public class StarePacient implements Serializable {
         this.gli = gli;
     }
 
+    @Bindable
     public Integer getId() {
         return id;
     }
@@ -91,6 +100,7 @@ public class StarePacient implements Serializable {
         this.id = id;
     }
 
+    @Bindable
     public String getPuls() {
         return puls;
     }
@@ -99,6 +109,7 @@ public class StarePacient implements Serializable {
         this.puls = puls;
     }
 
+    @Bindable
     public String getSato2() {
         return sato2;
     }
@@ -107,14 +118,16 @@ public class StarePacient implements Serializable {
         this.sato2 = sato2;
     }
 
-    public Stare getStarePacient() {
+    @Bindable
+    public String getStarePacient() {
         return starePacient;
     }
 
-    public void setStarePacient(Stare starePacient) {
+    public void setStarePacient(String starePacient) {
         this.starePacient = starePacient;
     }
 
+    @Bindable
     public String getTa() {
         return ta;
     }
@@ -123,6 +136,7 @@ public class StarePacient implements Serializable {
         this.ta = ta;
     }
 
+    @Bindable
     public String getTemp() {
         return temp;
     }

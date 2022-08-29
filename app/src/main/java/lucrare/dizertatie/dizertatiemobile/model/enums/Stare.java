@@ -23,4 +23,12 @@ public enum Stare {
         return nume;
     }
 
+    public static Stare getByName(String descipption)
+    {
+        for (Stare s: Stare.values())
+            if (s.getNume().equals(descipption))
+                return s;
+        return null;
+    }
+
 }

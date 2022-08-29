@@ -34,6 +34,9 @@ public class Doctor implements Serializable {
     @SerializedName("titlu")
     @Expose
     private String titlu;
+    @SerializedName("blocOperator")
+    @Expose
+    private String blocOperator;
 
     public Adresa getAdresa() {
         return adresa;
@@ -107,5 +110,11 @@ public class Doctor implements Serializable {
         this.titlu = titlu;
     }
 
+    public String getBlocOperator() {
+        return blocOperator;
+    }
 
+    public void setBlocOperator(String blocOperator) {
+        this.blocOperator = blocOperator;
+    }
 }

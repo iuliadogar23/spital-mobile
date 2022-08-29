@@ -6,9 +6,13 @@ import java.util.List;
 
 import lucrare.dizertatie.dizertatiemobile.api.service.FisaMedicalaApiService;
 import lucrare.dizertatie.dizertatiemobile.api.service.NotificareApiService;
+import lucrare.dizertatie.dizertatiemobile.api.service.ResurseApiService;
 import lucrare.dizertatie.dizertatiemobile.api.service.SpitalApiService;
 import lucrare.dizertatie.dizertatiemobile.model.doctormodel.Consult;
 import lucrare.dizertatie.dizertatiemobile.model.notificare.Notificare;
+import lucrare.dizertatie.dizertatiemobile.model.pacientmodel.FisaMedicala;
+import lucrare.dizertatie.dizertatiemobile.model.resourcesmodel.Pat;
+import lucrare.dizertatie.dizertatiemobile.model.resourcesmodel.SalaOperatie;
 import lucrare.dizertatie.dizertatiemobile.util.Constants;
 import lucrare.dizertatie.dizertatiemobile.util.SharedPreferencesUtil;
 import okhttp3.Cache;
@@ -25,6 +29,8 @@ public class ApiHelper {
     private FisaMedicalaApiService fisaMedicalaApiService;
 
     private NotificareApiService notificareApiService;
+
+    private ResurseApiService resurseApiService;
 
     public ApiHelper(Context context) {
 
@@ -51,6 +57,7 @@ public class ApiHelper {
         spitalApiService = retrofit.create(SpitalApiService.class);
         fisaMedicalaApiService = retrofit.create(FisaMedicalaApiService.class);
         notificareApiService = retrofit.create(NotificareApiService.class);
+        resurseApiService = retrofit.create(ResurseApiService.class);
     }
 
     public Call<List<Object>> findConsultsBy(Integer doctorId) {
@@ -73,8 +80,33 @@ public class ApiHelper {
         return notificareApiService.saveNotificare(notificare);
     }
 
+    public Call<Object> findDoctorByUsername(String doctor)
+    {
+        return spitalApiService.findDoctorByUsername(doctor);
+    }
+
     public Call<List<Object>> getAllNotificare() {
         return notificareApiService.getAllNotificare();
+    }
+
+    public Call<Object> savePat(Pat pat)
+    {
+        return resurseApiService.savePat(pat);
+    }
+
+    public Call<Object> saveSalaOperatie(SalaOperatie salaOperatie)
+    {
+        return resurseApiService.saveSalaOperatie(salaOperatie);
+    }
+
+    public Call<Object> saveFisaMedicala(FisaMedicala fisaMedicala)
+    {
+        return fisaMedicalaApiService.saveFisaMedicala(fisaMedicala);
+    }
+
+    public Call<Object> findFisaMedicalaById(Integer id)
+    {
+        return fisaMedicalaApiService.getFisaMedicalaById(id);
     }
 
 }

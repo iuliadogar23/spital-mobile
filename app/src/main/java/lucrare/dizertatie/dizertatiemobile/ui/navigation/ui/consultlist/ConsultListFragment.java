@@ -59,8 +59,8 @@ public class ConsultListFragment extends Fragment {
         ButterKnife.bind(this, root);
 
 
-        doctor = SharedPreferencesUtil.getInstance(getContext()).getDoctor();
-        getConsultList(getViewLifecycleOwner());
+        doctor = SharedPreferencesUtil.getInstance(getContext()).getDoctor().getId();
+        getConsultList(getActivity());
 
         tabLayout = binding.tabLayout;
 

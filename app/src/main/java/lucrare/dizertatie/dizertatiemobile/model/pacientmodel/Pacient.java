@@ -1,18 +1,21 @@
 package lucrare.dizertatie.dizertatiemobile.model.pacientmodel;
 
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Pacient implements Serializable {
+public class Pacient extends BaseObservable implements Serializable {
 
     @SerializedName("id")
     @Expose
     private Integer id;
     @SerializedName("ultimaSchimbare")
     @Expose
-    private Integer ultimaSchimbare;
+    private Long ultimaSchimbare;
     @SerializedName("nume")
     @Expose
     private String nume;
@@ -24,7 +27,7 @@ public class Pacient implements Serializable {
     private String varsta;
     @SerializedName("dataNastere")
     @Expose
-    private Integer dataNastere;
+    private String dataNastere;
     @SerializedName("cnp")
     @Expose
     private String cnp;
@@ -53,6 +56,7 @@ public class Pacient implements Serializable {
     @Expose
     private String telefon;
 
+    @Bindable
     public Integer getId() {
         return id;
     }
@@ -61,14 +65,16 @@ public class Pacient implements Serializable {
         this.id = id;
     }
 
-    public Integer getUltimaSchimbare() {
+    @Bindable
+    public Long getUltimaSchimbare() {
         return ultimaSchimbare;
     }
 
-    public void setUltimaSchimbare(Integer ultimaSchimbare) {
+    public void setUltimaSchimbare(Long ultimaSchimbare) {
         this.ultimaSchimbare = ultimaSchimbare;
     }
 
+    @Bindable
     public String getNume() {
         return nume;
     }
@@ -77,6 +83,7 @@ public class Pacient implements Serializable {
         this.nume = nume;
     }
 
+    @Bindable
     public String getPrenume() {
         return prenume;
     }
@@ -85,6 +92,7 @@ public class Pacient implements Serializable {
         this.prenume = prenume;
     }
 
+    @Bindable
     public String getVarsta() {
         return varsta;
     }
@@ -93,14 +101,16 @@ public class Pacient implements Serializable {
         this.varsta = varsta;
     }
 
-    public Integer getDataNastere() {
+    @Bindable
+    public String getDataNastere() {
         return dataNastere;
     }
 
-    public void setDataNastere(Integer dataNastere) {
+    public void setDataNastere(String dataNastere) {
         this.dataNastere = dataNastere;
     }
 
+    @Bindable
     public String getCnp() {
         return cnp;
     }
@@ -109,6 +119,7 @@ public class Pacient implements Serializable {
         this.cnp = cnp;
     }
 
+    @Bindable
     public String getSex() {
         return sex;
     }
@@ -117,6 +128,7 @@ public class Pacient implements Serializable {
         this.sex = sex;
     }
 
+    @Bindable
     public String getSange() {
         return sange;
     }
@@ -125,6 +137,7 @@ public class Pacient implements Serializable {
         this.sange = sange;
     }
 
+    @Bindable
     public String getAlergic() {
         return alergic;
     }
@@ -133,6 +146,7 @@ public class Pacient implements Serializable {
         this.alergic = alergic;
     }
 
+    @Bindable
     public String getJudet() {
         return judet;
     }
@@ -141,6 +155,7 @@ public class Pacient implements Serializable {
         this.judet = judet;
     }
 
+    @Bindable
     public String getLocalitate() {
         return localitate;
     }
@@ -149,6 +164,7 @@ public class Pacient implements Serializable {
         this.localitate = localitate;
     }
 
+    @Bindable
     public String getStrada() {
         return strada;
     }
@@ -157,6 +173,7 @@ public class Pacient implements Serializable {
         this.strada = strada;
     }
 
+    @Bindable
     public String getNrBlScEtAp() {
         return nrBlScEtAp;
     }
@@ -165,6 +182,7 @@ public class Pacient implements Serializable {
         this.nrBlScEtAp = nrBlScEtAp;
     }
 
+    @Bindable
     public String getTelefon() {
         return telefon;
     }

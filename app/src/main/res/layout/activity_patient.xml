@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     android:background="?android:windowBackground"
     tools:context=".ui.addpatientpage.PatientActivity"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -31,6 +31,7 @@
             app:tabIndicatorGravity="center"
             app:tabIndicatorHeight="@dimen/spacing_xlarge"
             app:tabMinWidth="120dp"
+            android:nestedScrollingEnabled="true"
             app:tabRippleColor="@android:color/transparent"
             app:tabSelectedTextColor="@android:color/white"
             app:tabTextAppearance="@style/TextAppearance.AppCompat.Body2"

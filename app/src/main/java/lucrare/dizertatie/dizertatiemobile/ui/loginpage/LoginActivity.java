@@ -45,28 +45,28 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginButtonClicked(LifecycleOwner lifecycleOwner)
     {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AuthenticationRequest authenticationRequest = new AuthenticationRequest();
-                authenticationRequest.setUsername(username.getText().toString());
-                authenticationRequest.setPassword(password.getText().toString());
+        button.setOnClickListener(view -> {
+            AuthenticationRequest authenticationRequest = new AuthenticationRequest();
+            authenticationRequest.setUsername(username.getText().toString());
+            authenticationRequest.setPassword(password.getText().toString());
 
-                viewModel.loginUser(authenticationRequest).observe(lifecycleOwner, token -> {
-                    sharedPreferencesUtil.setToken(token.getToken());
-                    sharedPreferencesUtil.setDoctor(token.getId());
+            //TODO: PARALLEL THREAD
+            viewModel.loginUser(authenticationRequest).observe(lifecycleOwner, token -> {
+                sharedPreferencesUtil.setToken(token.getToken());
+                viewModel.findDoctorByUsername(username.getText().toString()).observe(lifecycleOwner, doctor -> {
+                    sharedPreferencesUtil.setDoctor(doctor);
                 });
+            });
 
-                viewModel.getErrorCode().observe(lifecycleOwner, errorCode -> {
-                    if (errorCode!=null && errorCode == Constants.NETWORK_ERROR)
-                        Toast.makeText(getApplicationContext(), "Autentificarea a esuat!", Toast.LENGTH_LONG);
-                    else
-                    {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                    }
-                });
-            }
+            viewModel.getErrorCode().observe(lifecycleOwner, errorCode -> {
+                if (errorCode!=null && errorCode == Constants.NETWORK_ERROR)
+                    Toast.makeText(getApplicationContext(), "Autentificarea a esuat!", Toast.LENGTH_LONG).show();
+                else
+                {
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                }
+            });
         });
     }
 

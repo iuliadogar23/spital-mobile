@@ -3,7 +3,6 @@ package lucrare.dizertatie.dizertatiemobile.api.service;
 import java.util.List;
 
 import lucrare.dizertatie.dizertatiemobile.model.doctormodel.Consult;
-import lucrare.dizertatie.dizertatiemobile.model.doctormodel.Doctor;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -24,5 +23,11 @@ public interface SpitalApiService {
     @GET("doctor/all")
     @Headers("Content-Type: application/json")
     Call<List<Object>> getAllDoctors();
+
+    @GET("doctor/username")
+    @Headers("Content-Type: application/json")
+    Call<Object> findDoctorByUsername(@Query("username") String username);
+
+
 
 }

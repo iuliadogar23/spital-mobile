@@ -21,4 +21,12 @@ public enum ScorNaca {
         return descriere;
     }
 
+    public static ScorNaca getByDescription(String description)
+    {
+        for(ScorNaca n: ScorNaca.values())
+            if (n.getDescriere().equals(description))
+                return n;
+        return null;
+    }
+
 }

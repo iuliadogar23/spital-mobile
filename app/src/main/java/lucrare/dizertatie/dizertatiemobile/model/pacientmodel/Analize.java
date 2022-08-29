@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 public class Analize implements Serializable {
 
@@ -15,7 +16,7 @@ public class Analize implements Serializable {
     private Integer id;
     @SerializedName("ora")
     @Expose
-    private Integer ora;
+    private Long ora;
     @SerializedName("valoare")
     @Expose
     private String valoare;
@@ -36,11 +37,11 @@ public class Analize implements Serializable {
         this.id = id;
     }
 
-    public Integer getOra() {
+    public Long getOra() {
         return ora;
     }
 
-    public void setOra(Integer ora) {
+    public void setOra(Long ora) {
         this.ora = ora;
     }
 
@@ -52,4 +53,12 @@ public class Analize implements Serializable {
         this.valoare = valoare;
     }
 
+    public Analize(String denumire, String valoare) {
+        this.denumire = denumire;
+        this.ora = Calendar.getInstance().getTimeInMillis();
+        this.valoare = valoare;
+    }
+
+    public Analize() {
+    }
 }

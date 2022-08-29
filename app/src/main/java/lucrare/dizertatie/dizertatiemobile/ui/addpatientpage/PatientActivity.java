@@ -20,6 +20,7 @@ import lucrare.dizertatie.dizertatiemobile.ui.addpatientpage.ui.patientdetails.P
 import lucrare.dizertatie.dizertatiemobile.ui.addpatientpage.ui.patientdetails.RecommendationFragment;
 import lucrare.dizertatie.dizertatiemobile.ui.addpatientpage.ui.patientdetails.StateFragment;
 import lucrare.dizertatie.dizertatiemobile.ui.addpatientpage.ui.patientdetails.TriageFragment;
+import lucrare.dizertatie.dizertatiemobile.util.SharedPreferencesUtil;
 
 public class PatientActivity extends AppCompatActivity {
 
@@ -38,6 +39,7 @@ public class PatientActivity extends AppCompatActivity {
         binding = ActivityPatientBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         ButterKnife.bind(this);
+        SharedPreferencesUtil.getInstance(getApplicationContext()).setNewFisa(null);
 
         setupViewPager();
 
@@ -49,9 +51,9 @@ public class PatientActivity extends AppCompatActivity {
 
         viewPagerAdapter.addFragment(PatientDetailsFragment.newInstance(), "Pacient");
         viewPagerAdapter.addFragment(StateFragment.newInstance(), "Stare");
-        viewPagerAdapter.addFragment(PathologicalBackgroundFragment.newInstance(), "Antecedente");
+        viewPagerAdapter.addFragment(PathologicalBackgroundFragment.newInstance(), "Anamneza");
         viewPagerAdapter.addFragment(TriageFragment.newInstance(), "Triaj");
-        viewPagerAdapter.addFragment(EkgFragment.newInstance(), "Observatii");
+        viewPagerAdapter.addFragment(EkgFragment.newInstance(), "Investigatii");
         viewPagerAdapter.addFragment(AnalysisFragment.newInstance(), "Analize");
         viewPagerAdapter.addFragment(RecommendationFragment.newInstance(), "Recomandari");
 

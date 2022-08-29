@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         ButterKnife.bind(this, root);
-        getAllFisaMedicala(getViewLifecycleOwner());
+        getAllFisaMedicala(getActivity());
         setNavigationToOptions(root);
         initButtons();
 

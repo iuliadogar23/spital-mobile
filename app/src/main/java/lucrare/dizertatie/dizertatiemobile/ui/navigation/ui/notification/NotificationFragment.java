@@ -52,7 +52,7 @@ public class NotificationFragment extends Fragment {
 
     private void setupViewModel() {
         mViewModel = new ViewModelProvider(this).get(NotificationViewModel.class);
-        mViewModel.getAllNotificare().observe(getViewLifecycleOwner(), notificareResponse -> {
+        mViewModel.getAllNotificare().observe(getActivity(), notificareResponse -> {
             if (notificareResponse.getNotificareList() != null)
                 items.addAll(notificareResponse.getNotificareList());
             adapter = new NotificationListAdapter(items, getContext(), R.layout.item_notificare_card);

@@ -24,4 +24,12 @@ public enum AdusDeLa {
         return nume;
     }
 
+    public static AdusDeLa findByName(String name)
+    {
+        for (AdusDeLa adusDeLa: AdusDeLa.values())
+            if (adusDeLa.getNume().equals(name))
+                return adusDeLa;
+        return null;
+    }
+
 }

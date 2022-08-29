@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import lucrare.dizertatie.dizertatiemobile.R;
+import lucrare.dizertatie.dizertatiemobile.model.enums.Stare;
 import lucrare.dizertatie.dizertatiemobile.model.pacientmodel.FisaMedicala;
 
 public class PatientsMedicalHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -54,7 +55,7 @@ public class PatientsMedicalHistoryAdapter extends RecyclerView.Adapter<Recycler
             FisaMedicala p = items.get(position);
             viewHolder.name.setText(p.getPacient().getNume()+" "+p.getPacient().getPrenume());
             viewHolder.documentNr.setText(p.getNrFisa());
-            viewHolder.state.setText(p.getStarePacient().get(p.getStarePacient().size()-1).getStarePacient().getNume());
+            viewHolder.state.setText(Stare.getByName(p.getStarePacient().get(p.getStarePacient().size()-1).getStarePacient()).getNume());
 
             viewHolder.lyt_parent.setOnClickListener(v->{
                 if (onItemClickListener == null)
