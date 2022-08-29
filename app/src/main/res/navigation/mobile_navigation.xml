@@ -11,9 +11,6 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_nav_home_to_nav_patient_registration"
-            app:destination="@id/nav_patient_registration" />
-        <action
             android:id="@+id/action_nav_home_to_nav_new_consult"
             app:destination="@id/nav_consult_registration" />
         <action
@@ -28,12 +25,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_patient_registration"
-        android:name="lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.patientregister.PatientRegisterFragment"
-        android:label="@string/menu_patient_registration"
-        tools:layout="@layout/fragment_patient_register" />
-
-    <fragment
         android:id="@+id/nav_consult_registration"
         android:name="lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.newconsult.NewConsultFragment"
         android:label="Consult nou"
@@ -41,7 +32,7 @@
     <fragment
         android:id="@+id/nav_consult_list"
         android:name="lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.consultlist.ConsultListFragment"
-        android:label="fragment_consult_list"
+        android:label="Consulturi"
         tools:layout="@layout/fragment_consult_list" >
         <action
             android:id="@+id/action_nav_consult_list_to_dialogConsultFragment"

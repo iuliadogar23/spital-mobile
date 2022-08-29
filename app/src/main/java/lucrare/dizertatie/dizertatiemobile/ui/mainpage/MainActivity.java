@@ -52,9 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SharedPreferencesUtil sharedPreferencesUtil;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         ButterKnife.bind(this);
@@ -62,8 +61,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initDrawer();
         initToolbar();
         initNavigationMenu();
-
-
     }
 
     private void initToolbar() {
@@ -71,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(binding.appBarGeneral.toolbar);
         getSupportActionBar().setTitle("");
         appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_patient_registration, R.id.nav_consult_registration, R.id.nav_consult_list, R.id.patientMedicalHistoryFragment) //poate aici vine notification nav daca faci idk
+                R.id.nav_home, R.id.nav_consult_registration, R.id.nav_consult_list, R.id.patientMedicalHistoryFragment) //poate aici vine notification nav daca faci idk
                 .setOpenableLayout(drawerLayout)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_general);
@@ -104,7 +101,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_message, menu);
         bellMenu = menu;
-        this.mPubSubPnCallback = new PubSubPnCallback(bellMenu.findItem(R.id.action_notifications), getApplicationContext());
+        menuItem = bellMenu.findItem(R.id.action_notifications);
+//        menuItem.setOnMenuItemClickListener(item -> {
+//            drawerLayout.closeDrawer(GravityCompat.START);
+//            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_general, new NotificationFragment()).addToBackStack(null).commit();
+//            return true;
+//        });
+        this.mPubSubPnCallback = new PubSubPnCallback(menuItem, getApplicationContext());
 
         initPubNub();
         initChannels();
@@ -132,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.menu_home:
                 getSupportFragmentManager().popBackStack();
                 navigationView.setCheckedItem(R.id.nav_home);
@@ -155,7 +158,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 getSupportFragmentManager().popBackStack();
                 navigationView.setCheckedItem(R.id.nav_consult_list);
                 drawerLayout.closeDrawer(GravityCompat.START);
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_general, new ConsultListFragment()).addToBackStack(null).commit();
+                getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_content_general, new ConsultListFragment()).addToBackStack(null).commit();
+                break;
 
         }
     }
@@ -165,8 +169,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
-        if (result != null && result.getContents() != null)
-        {
+        if (result != null && result.getContents() != null) {
             //aici return fisa nr => open fisa nr detalii
         }
 

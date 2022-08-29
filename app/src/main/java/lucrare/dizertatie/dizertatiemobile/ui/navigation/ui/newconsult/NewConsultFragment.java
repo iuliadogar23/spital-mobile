@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import lucrare.dizertatie.dizertatiemobile.R;
 import lucrare.dizertatie.dizertatiemobile.databinding.FragmentNewConsultBinding;
 import lucrare.dizertatie.dizertatiemobile.model.doctormodel.Consult;
@@ -59,6 +60,7 @@ public class NewConsultFragment extends Fragment {
 
         binding = FragmentNewConsultBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        ButterKnife.bind(this, root);
         newConsultViewModel = new ViewModelProvider(this).get(NewConsultViewModel.class);
         hospitalActivityViewModel = new ViewModelProvider(this).get(HospitalActivityViewModel.class);
 
@@ -66,9 +68,9 @@ public class NewConsultFragment extends Fragment {
 
         hospitalActivityViewModel.getAllDoctors().observe(getActivity(), doctorResponse -> {
             doctorsBySectie = doctorResponse.getDoctorList().stream().collect(Collectors.groupingBy(Doctor::getSpecializare));
+            setupLayouts();
         });
 
-        setupLayouts();
 
         return root;
     }

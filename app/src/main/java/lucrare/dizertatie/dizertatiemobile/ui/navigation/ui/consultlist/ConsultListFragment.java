@@ -53,19 +53,16 @@ public class ConsultListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mViewModel = new ViewModelProvider(this).get(ConsultListViewModel.class);
         binding = FragmentConsultListBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         ButterKnife.bind(this, root);
+        mViewModel = new ViewModelProvider(this).get(ConsultListViewModel.class);
 
 
         doctor = SharedPreferencesUtil.getInstance(getContext()).getDoctor().getId();
         getConsultList(getActivity());
 
         tabLayout = binding.tabLayout;
-
-        setupFragment();
-
 
 
         return root;
@@ -81,6 +78,7 @@ public class ConsultListFragment extends Fragment {
             bundle.putSerializable("consult", obj);
             Navigation.findNavController(view).navigate(R.id.action_nav_consult_list_to_dialogConsultFragment, bundle);
         });
+        setupFragment();
     }
 
     private void getConsultList(LifecycleOwner lifecycleOwner)

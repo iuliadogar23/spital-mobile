@@ -27,12 +27,11 @@
                 android:id="@+id/notificare_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/spacing_large"
-                android:layout_marginRight="@dimen/spacing_large"
-                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_margin="@dimen/spacing_large"
                 android:text="@string/middle_lorem_ipsum"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textColor="@color/grey_80"
+                android:textSize="@dimen/spacing_slarge"
                 app:fontFamily="sans-serif-medium" />
 
 

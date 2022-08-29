@@ -3,6 +3,8 @@ package lucrare.dizertatie.dizertatiemobile.util;
 public class Constants {
     public static final int NETWORK_ERROR = 0;
     public static final String BASE_URL="http://192.168.0.125:9999/";
+    public static final String SPACE=" ";
+    public static final String ENDLINE="\n";
 
     public static final String PUBNUB_PUBLISH_KEY = "pub-c-967ea6f4-489c-49a0-b8be-6a6ea0ef2282";     // Replace with your publish key
     public static final String PUBNUB_SUBSCRIBE_KEY = "sub-c-4d724270-4abf-461e-9225-5534405adddf";   // Replace with your subscribe key

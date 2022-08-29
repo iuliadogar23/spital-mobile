@@ -8,12 +8,14 @@ public class PubSubPojo {
     private final String message;
     private final String timestamp;
     private final String receiver;
+    private boolean isReply;
 
     public PubSubPojo(@JsonProperty("sender") String sender, @JsonProperty("message") String message, @JsonProperty("timestamp") String timestamp, @JsonProperty("receiver") String receiver) {
         this.sender = sender;
         this.message = message;
         this.timestamp = timestamp;
         this.receiver = receiver;
+        this.isReply=false;
     }
 
     public String getSender() {
@@ -32,4 +34,11 @@ public class PubSubPojo {
         return receiver;
     }
 
+    public boolean isReply() {
+        return isReply;
+    }
+
+    public void setReply(boolean reply) {
+        isReply = reply;
+    }
 }
