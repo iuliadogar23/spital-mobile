@@ -97,9 +97,15 @@ public class FisaMedicala implements Serializable {
     @SerializedName("decizie")
     @Expose
     private String decizie;
+    @SerializedName("diagnostic")
+    @Expose
+    private String diagnostic;
     @SerializedName("doctorAsignat")
     @Expose
     private Integer doctorAsignat;
+    @SerializedName("doctorRecent")
+    @Expose
+    private String doctorRecent;
 
     public Integer getNrFisa() {
         return nrFisa;
@@ -331,5 +337,21 @@ public class FisaMedicala implements Serializable {
 
     public void setDoctorAsignat(Integer doctorAsignat) {
         this.doctorAsignat = doctorAsignat;
+    }
+
+    public String getDiagnostic() {
+        return diagnostic;
+    }
+
+    public void setDiagnostic(String diagnostic) {
+        this.diagnostic = diagnostic;
+    }
+
+    public String getDoctorRecent() {
+        return doctorRecent;
+    }
+
+    public void setDoctorRecent(String doctorRecent) {
+        this.doctorRecent = doctorRecent;
     }
 }

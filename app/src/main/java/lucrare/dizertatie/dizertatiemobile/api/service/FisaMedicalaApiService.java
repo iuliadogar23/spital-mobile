@@ -25,4 +25,8 @@ public interface FisaMedicalaApiService {
     @Headers("Content-Type: application/json")
     Call<Object> saveFisaMedicala(@Body FisaMedicala fisaMedicala);
 
+    @GET("fisa-medicala/active")
+    @Headers("Content-Type: application/json")
+    Call<List<Object>> getAllFisaMedicalaActive();
+
 }

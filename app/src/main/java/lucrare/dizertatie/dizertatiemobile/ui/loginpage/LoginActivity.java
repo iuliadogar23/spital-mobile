@@ -39,12 +39,14 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         sharedPreferencesUtil = SharedPreferencesUtil.getInstance(this);
+        sharedPreferencesUtil.setNewFisa(null);
+        sharedPreferencesUtil.setToken(null);
+        sharedPreferencesUtil.setDoctor(null);
         viewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         loginButtonClicked(this);
     }
 
-    private void loginButtonClicked(LifecycleOwner lifecycleOwner)
-    {
+    private void loginButtonClicked(LifecycleOwner lifecycleOwner) {
         button.setOnClickListener(view -> {
             AuthenticationRequest authenticationRequest = new AuthenticationRequest();
             authenticationRequest.setUsername(username.getText().toString());
@@ -52,17 +54,18 @@ public class LoginActivity extends AppCompatActivity {
 
             //TODO: PARALLEL THREAD
             viewModel.loginUser(authenticationRequest).observe(lifecycleOwner, token -> {
-                sharedPreferencesUtil.setToken(token.getToken());
-                viewModel.findDoctorByUsername(username.getText().toString()).observe(lifecycleOwner, doctor -> {
-                    sharedPreferencesUtil.setDoctor(doctor);
-                });
+                if (token != null) {
+                    sharedPreferencesUtil.setToken(token.getToken());
+                    viewModel.findDoctorByUsername(username.getText().toString()).observe(lifecycleOwner, doctor -> {
+                        sharedPreferencesUtil.setDoctor(doctor);
+                    });
+                }
             });
 
             viewModel.getErrorCode().observe(lifecycleOwner, errorCode -> {
-                if (errorCode!=null && errorCode == Constants.NETWORK_ERROR)
+                if (errorCode != null && errorCode == Constants.NETWORK_ERROR)
                     Toast.makeText(getApplicationContext(), "Autentificarea a esuat!", Toast.LENGTH_LONG).show();
-                else
-                {
+                else {
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                 }

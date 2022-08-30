@@ -63,5 +63,26 @@ public class HomeViewModel extends AndroidViewModel {
         return fisaMedicalaList;
     }
 
+    public MutableLiveData<FisaMedicalaResponse> getAllActiveFisaMedicala()
+    {
+        apiHelper.getFisaMedicalaActive().enqueue(new Callback<List<Object>>() {
+            @Override
+            public void onResponse(Call<List<Object>> call, Response<List<Object>> response) {
+                FisaMedicalaResponse fisaMedicalaResponse = new FisaMedicalaResponse();
+                errorCode.postValue(null);
+
+                fisaMedicalaResponse.setFisaMedicalaList(gson.fromJson(gson.toJson(response.body()), TypeToken.getParameterized(ArrayList.class, FisaMedicala.class).getType()));
+                fisaMedicalaList.postValue(fisaMedicalaResponse);
+            }
+
+            @Override
+            public void onFailure(Call<List<Object>> call, Throwable t) {
+                errorCode.postValue(Constants.NETWORK_ERROR);
+            }
+        });
+
+        return fisaMedicalaList;
+    }
+
 
 }

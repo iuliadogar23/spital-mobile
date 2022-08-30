@@ -1,6 +1,7 @@
 package lucrare.dizertatie.dizertatiemobile.ui.addpatientpage.ui.patientdetails;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -12,10 +13,13 @@ import com.google.gson.stream.JsonReader;
 import java.io.StringReader;
 
 import lucrare.dizertatie.dizertatiemobile.api.ApiHelper;
+import lucrare.dizertatie.dizertatiemobile.model.doctormodel.Doctor;
 import lucrare.dizertatie.dizertatiemobile.model.pacientmodel.FisaMedicala;
 import lucrare.dizertatie.dizertatiemobile.model.resourcesmodel.Pat;
 import lucrare.dizertatie.dizertatiemobile.model.resourcesmodel.SalaOperatie;
 import lucrare.dizertatie.dizertatiemobile.util.Constants;
+import lucrare.dizertatie.dizertatiemobile.util.SharedPreferencesUtil;
+import lucrare.dizertatie.dizertatiemobile.util.Utils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,8 +31,9 @@ public class StateViewModel extends AndroidViewModel {
     private MutableLiveData<SalaOperatie> salaOperatieMutableLiveData;
     private MutableLiveData<FisaMedicala> fisaMedicalaMutableLiveData;
     private Gson gson;
+    private Context context;
 
-    public StateViewModel(@NonNull Application application) {
+    public StateViewModel(@NonNull Application application, Context context) {
         super(application);
         apiHelper = new ApiHelper(application.getApplicationContext());
         errorCode = new MutableLiveData<>();
@@ -36,6 +41,7 @@ public class StateViewModel extends AndroidViewModel {
         salaOperatieMutableLiveData = new MutableLiveData<>();
         fisaMedicalaMutableLiveData = new MutableLiveData<>();
         gson = new Gson();
+        context = context;
     }
 
     public MutableLiveData<Integer> getErrorCode() {
@@ -80,6 +86,10 @@ public class StateViewModel extends AndroidViewModel {
 
     public MutableLiveData<FisaMedicala> saveFisaMedicala(FisaMedicala fisaMedicala)
     {
+        Doctor d = SharedPreferencesUtil.getInstance(context).getDoctor();
+        fisaMedicala.setDoctorAsignat(d.getId());
+        fisaMedicala.setDoctorRecent(Utils.setDoctorTitle(d));
+
         apiHelper.saveFisaMedicala(fisaMedicala).enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {

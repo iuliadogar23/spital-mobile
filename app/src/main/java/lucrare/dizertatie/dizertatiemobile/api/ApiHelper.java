@@ -109,4 +109,9 @@ public class ApiHelper {
         return fisaMedicalaApiService.getFisaMedicalaById(id);
     }
 
+    public Call<List<Object>> getFisaMedicalaActive()
+    {
+        return fisaMedicalaApiService.getAllFisaMedicalaActive();
+    }
+
 }

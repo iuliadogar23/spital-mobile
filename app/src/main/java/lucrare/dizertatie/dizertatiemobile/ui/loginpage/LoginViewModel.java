@@ -49,7 +49,9 @@ public class LoginViewModel extends AndroidViewModel {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
                 errorCode.postValue(null);
-                if (response.isSuccessful())
+                if (response.body()==null)
+                    errorCode.postValue(Constants.NETWORK_ERROR);
+                else if (response.isSuccessful())
                     tokenValue.postValue(gson.fromJson(response.body().toString(), AuthenticationResponse.class));
             }
 

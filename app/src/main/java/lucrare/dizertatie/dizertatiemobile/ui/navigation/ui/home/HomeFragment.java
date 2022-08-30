@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -54,7 +55,7 @@ public class HomeFragment extends Fragment {
     HomeViewModel homeViewModel;
 
     //get all fise from request
-    private List<FisaMedicala> fiseReturn = new ArrayList<>();
+    private List<FisaMedicala> fiseReturn;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -71,8 +72,7 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    private void setNavigationToOptions(View view)
-    {
+    private void setNavigationToOptions(View view) {
         newPatientButton.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), PatientActivity.class);
             startActivity(intent);
@@ -96,16 +96,17 @@ public class HomeFragment extends Fragment {
 
     private void getAllFisaMedicala(LifecycleOwner lifecycleOwner) {
         homeViewModel.getAllFisaMedicala().observe(lifecycleOwner, fisa -> {
-            if (fisa.getFisaMedicalaList()!=null) {
-                fiseReturn.addAll(fisa.getFisaMedicalaList());
+            if (fisa.getFisaMedicalaList() != null && !fisa.getFisaMedicalaList().isEmpty()) {
+                fiseReturn = fisa.getFisaMedicalaList();
                 adapter = new PatientSearchAdapter(getContext(), fiseReturn);
                 search.setAdapter(adapter);
+            } else {
+                Toast.makeText(getContext(), "Niciun pacient gasit!", Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private void initButtons()
-    {
+    private void initButtons() {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

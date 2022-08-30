@@ -33,6 +33,7 @@
         </activity>
         <activity
             android:name=".ui.mainpage.MainActivity"
+            android:launchMode="singleTop"
             android:exported="true" />
     </application>
 

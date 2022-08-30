@@ -26,6 +26,7 @@ import lucrare.dizertatie.dizertatiemobile.adapters.DoctorActivityAdapter;
 import lucrare.dizertatie.dizertatiemobile.databinding.FragmentConsultListBinding;
 import lucrare.dizertatie.dizertatiemobile.databinding.FragmentHospitalActivityBinding;
 import lucrare.dizertatie.dizertatiemobile.model.doctormodel.Doctor;
+import lucrare.dizertatie.dizertatiemobile.pubsub.PresencePnCallback;
 import lucrare.dizertatie.dizertatiemobile.ui.mainpage.MainActivity;
 import lucrare.dizertatie.dizertatiemobile.util.SharedPreferencesUtil;
 
@@ -39,6 +40,7 @@ public class HospitalActivityFragment extends Fragment {
     private FragmentHospitalActivityBinding binding;
     private List<Doctor> items = new ArrayList<>();
     private PubNub pubNub;
+    private PresencePnCallback presencePnCallback;
     SharedPreferencesUtil sharedPreferencesUtil;
 
     public static HospitalActivityFragment newInstance() {
@@ -53,6 +55,7 @@ public class HospitalActivityFragment extends Fragment {
         ButterKnife.bind(this, root);
         sharedPreferencesUtil = SharedPreferencesUtil.getInstance(getContext());
         pubNub = ((MainActivity)getActivity()).getmPubnub_DataStream();
+        presencePnCallback = ((MainActivity)getActivity()).getmPresencePnCallback();
 
         setupViewModel();
         initComponent();
@@ -72,7 +75,7 @@ public class HospitalActivityFragment extends Fragment {
         mViewModel.getAllDoctors().observe(getActivity(), doctorResponse -> {
             if (doctorResponse!=null && doctorResponse.getDoctorList()!=null)
                 items.addAll(doctorResponse.getDoctorList());
-            adapter = new DoctorActivityAdapter(items, getContext(), R.layout.item_doctor_activity, pubNub, sharedPreferencesUtil);
+            adapter = new DoctorActivityAdapter(items, getContext(), R.layout.item_doctor_activity, pubNub, sharedPreferencesUtil, presencePnCallback);
             recyclerView.setAdapter(adapter);
 
         });

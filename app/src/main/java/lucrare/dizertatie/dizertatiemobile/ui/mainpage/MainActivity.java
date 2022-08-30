@@ -2,6 +2,8 @@ package lucrare.dizertatie.dizertatiemobile.ui.mainpage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,13 +24,24 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.pubnub.api.PNConfiguration;
 import com.pubnub.api.PubNub;
+import com.pubnub.api.callbacks.PNCallback;
+import com.pubnub.api.models.consumer.PNStatus;
+import com.pubnub.api.models.consumer.presence.PNHereNowChannelData;
+import com.pubnub.api.models.consumer.presence.PNHereNowOccupantData;
+import com.pubnub.api.models.consumer.presence.PNHereNowResult;
 
+import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import lucrare.dizertatie.dizertatiemobile.R;
+import lucrare.dizertatie.dizertatiemobile.adapters.DoctorActivityAdapter;
 import lucrare.dizertatie.dizertatiemobile.databinding.ActivityMainBinding;
+import lucrare.dizertatie.dizertatiemobile.pubsub.PresencePnCallback;
+import lucrare.dizertatie.dizertatiemobile.pubsub.PresencePojo;
 import lucrare.dizertatie.dizertatiemobile.pubsub.PubSubPnCallback;
 import lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.consultlist.ConsultListFragment;
 import lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.home.HomeFragment;
@@ -49,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private PubNub mPubnub_DataStream;
     private PubSubPnCallback mPubSubPnCallback;
+
+    private PresencePnCallback mPresencePnCallback;
     SharedPreferencesUtil sharedPreferencesUtil;
 
     @Override
@@ -63,10 +78,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initNavigationMenu();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        sharedPreferencesUtil = SharedPreferencesUtil.getInstance(this);
+    }
+
     private void initToolbar() {
 
-        setSupportActionBar(binding.appBarGeneral.toolbar);
-        getSupportActionBar().setTitle("");
+        setActionBarTitleFragment();
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_consult_registration, R.id.nav_consult_list, R.id.patientMedicalHistoryFragment) //poate aici vine notification nav daca faci idk
                 .setOpenableLayout(drawerLayout)
@@ -108,7 +128,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            return true;
 //        });
         this.mPubSubPnCallback = new PubSubPnCallback(menuItem, getApplicationContext());
-
+        this.mPresencePnCallback = new PresencePnCallback();
+        sharedPreferencesUtil = SharedPreferencesUtil.getInstance(this);
         initPubNub();
         initChannels();
 
@@ -169,8 +190,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
-        if (result != null && result.getContents() != null) {
-            //aici return fisa nr => open fisa nr detalii
+        if (result != null && result.getContents() != null){
+
         }
 
     }
@@ -190,11 +211,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initChannels() {
         String channel = String.valueOf(sharedPreferencesUtil.getDoctor().getId());
         mPubnub_DataStream.addListener(mPubSubPnCallback);
+        mPubnub_DataStream.addListener(mPresencePnCallback);
         mPubnub_DataStream.subscribe().channels(Arrays.asList(channel)).execute();
-//        this.mPubnub_DataStream.subscribe().channels(Arrays.asList(sharedPreferencesUtil.getDoctor().getId().toString())).execute();
-    }
+        this.mPubnub_DataStream.hereNow().channels(Arrays.asList("common")).async(new PNCallback<PNHereNowResult>() {
+            @Override
+            public void onResponse(PNHereNowResult result, PNStatus status) {
+                if (status.isError()) {
+                    return;
+                }
+
+                try {
+
+                    for (Map.Entry<String, PNHereNowChannelData> entry : result.getChannels().entrySet()) {
+                        for (PNHereNowOccupantData occupant : entry.getValue().getOccupants()) {
+                            MainActivity.this.mPresencePnCallback.addPresenceInList(new PresencePojo(occupant.getUuid(), "join", new Timestamp(Calendar.getInstance().getTimeInMillis()).toString()));
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });    }
 
     public PubNub getmPubnub_DataStream() {
         return mPubnub_DataStream;
+    }
+
+    public PresencePnCallback getmPresencePnCallback() {
+        return mPresencePnCallback;
+    }
+
+    public void setActionBarTitleFragment()
+    {
+        setSupportActionBar(binding.appBarGeneral.toolbar);
+        getSupportActionBar().setTitle("");
+    }
+
+    private void disconnectAndCleanup() {
+        getSharedPreferences(Constants.DATASTREAM_PREFS, MODE_PRIVATE).edit().clear().commit();
+
+        if (this.mPubnub_DataStream != null) {
+            this.mPubnub_DataStream.unsubscribe().execute();
+            this.mPubnub_DataStream.removeListener(this.mPubSubPnCallback);
+            this.mPubnub_DataStream.removeListener(this.mPresencePnCallback);
+            this.mPubnub_DataStream.stop();
+            this.mPubnub_DataStream = null;
+        }
+
     }
 }

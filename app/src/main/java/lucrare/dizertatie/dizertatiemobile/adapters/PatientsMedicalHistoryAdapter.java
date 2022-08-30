@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import lucrare.dizertatie.dizertatiemobile.R;
-import lucrare.dizertatie.dizertatiemobile.model.enums.Stare;
 import lucrare.dizertatie.dizertatiemobile.model.pacientmodel.FisaMedicala;
+import lucrare.dizertatie.dizertatiemobile.util.Utils;
 
 public class PatientsMedicalHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -53,9 +53,9 @@ public class PatientsMedicalHistoryAdapter extends RecyclerView.Adapter<Recycler
             OriginalViewHolder viewHolder = (OriginalViewHolder) holder;
 
             FisaMedicala p = items.get(position);
-            viewHolder.name.setText(p.getPacient().getNume()+" "+p.getPacient().getPrenume());
-            viewHolder.documentNr.setText(p.getNrFisa());
-            viewHolder.state.setText(Stare.getByName(p.getStarePacient().get(p.getStarePacient().size()-1).getStarePacient()).getNume());
+            viewHolder.name.setText(Utils.setPatientName(p.getPacient())+", "+p.getPacient().getVarsta()+" ani");
+            viewHolder.documentNr.setText("Fisa nr."+p.getNrFisa().toString());
+            viewHolder.doctor.setText(p.getDoctorRecent());
 
             viewHolder.lyt_parent.setOnClickListener(v->{
                 if (onItemClickListener == null)
@@ -76,14 +76,14 @@ public class PatientsMedicalHistoryAdapter extends RecyclerView.Adapter<Recycler
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
         public TextView documentNr;
-        public TextView state;
+        public TextView doctor;
         public View lyt_parent;
 
         public OriginalViewHolder(@NonNull View v) {
             super(v);
             name = v.findViewById(R.id.consult_description);
             documentNr = v.findViewById(R.id.consult_severity);
-            state = v.findViewById(R.id.consult_date);
+            doctor = v.findViewById(R.id.consult_date);
             lyt_parent = v.findViewById(R.id.lyt_parent);
         }
     }
