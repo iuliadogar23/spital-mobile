@@ -1,27 +1,20 @@
 package lucrare.dizertatie.dizertatiemobile.adapters;
 
-import android.app.Activity;
 import android.content.Context;
-import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.pubnub.api.PubNub;
 import com.pubnub.api.callbacks.PNCallback;
@@ -29,36 +22,30 @@ import com.pubnub.api.models.consumer.PNPublishResult;
 import com.pubnub.api.models.consumer.PNStatus;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import lucrare.dizertatie.dizertatiemobile.R;
 import lucrare.dizertatie.dizertatiemobile.model.doctormodel.Doctor;
-import lucrare.dizertatie.dizertatiemobile.pubsub.PresencePnCallback;
-import lucrare.dizertatie.dizertatiemobile.pubsub.PresencePojo;
-import lucrare.dizertatie.dizertatiemobile.ui.mainpage.MainActivity;
+import lucrare.dizertatie.dizertatiemobile.model.notificare.Mesaj;
 import lucrare.dizertatie.dizertatiemobile.util.SharedPreferencesUtil;
 import lucrare.dizertatie.dizertatiemobile.util.Utils;
 
-public class DoctorActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DoctorReplyActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Doctor> items;
+    private List<Mesaj> items;
     private Context ctx;
     private Gson gson;
     private PubNub pubNub;
     private SharedPreferencesUtil sharedPreferencesUtil;
 
-    private List<PresencePojo> presenceList = new ArrayList<>();
-    private final Map<String, PresencePojo> latestPresence = new LinkedHashMap<String, PresencePojo>();
 
     @LayoutRes
     private int layout_id;
 
-    public DoctorActivityAdapter(List<Doctor> items, Context ctx, int layout_id, PubNub pubNub, SharedPreferencesUtil sharedPreferencesUtil) {
+    public DoctorReplyActivityAdapter(List<Mesaj> items, Context ctx, int layout_id, PubNub pubNub, SharedPreferencesUtil sharedPreferencesUtil) {
         this.items = items;
         this.ctx = ctx;
         this.layout_id = layout_id;
@@ -73,7 +60,7 @@ public class DoctorActivityAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
         View v = LayoutInflater.from(parent.getContext()).inflate(layout_id, parent, false);
-        vh = new DoctorActivityAdapter.OriginalViewHolder(v);
+        vh = new DoctorReplyActivityAdapter.OriginalViewHolder(v);
         return vh;
     }
 
@@ -81,49 +68,31 @@ public class DoctorActivityAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
 
-        if (holder instanceof DoctorActivityAdapter.OriginalViewHolder) {
-            DoctorActivityAdapter.OriginalViewHolder viewHolder = (DoctorActivityAdapter.OriginalViewHolder) holder;
+        if (holder instanceof DoctorReplyActivityAdapter.OriginalViewHolder) {
+            DoctorReplyActivityAdapter.OriginalViewHolder viewHolder = (DoctorReplyActivityAdapter.OriginalViewHolder) holder;
 
-            Doctor d = items.get(position);
-            PresencePojo isActive = presenceList.stream().filter(p->p!=null && p.getSender()!=null && p.getSender().contains(gson.toJson(d))).findFirst().orElse(null);
+            Mesaj m = items.get(position);
+            Doctor d = gson.fromJson(m.getSender(), Doctor.class);
+
             viewHolder.doctor.setText(Utils.setDoctorTitle(d));
-            viewHolder.status.setText(isActive!=null? "Activ":"Inactiv"); //Add la doctor status activ inactiv whatever
-            viewHolder.sectie.setText(d.getSpecializare());
+            viewHolder.mesajPrimit.setText(m.getMesaj());
+            viewHolder.accept.setOnClickListener(v -> publish(gson.toJson(sharedPreferencesUtil.getDoctor()), viewHolder.mesaj.getText().toString(), m.getUid(), String.valueOf(true),  d.getId().toString(), viewHolder.mesaj));
+            viewHolder.refuz.setOnClickListener(v -> publish(gson.toJson(sharedPreferencesUtil.getDoctor()), viewHolder.mesaj.getText().toString(), m.getUid(), String.valueOf(false),  d.getId().toString(), viewHolder.mesaj));
 
-            viewHolder.sendIcon.setStartIconOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    publish(gson.toJson(sharedPreferencesUtil.getDoctor()), viewHolder.mesaj.getText().toString(), d.getId().toString(), viewHolder.mesaj);
-                }
-            });
 
         }
 
     }
 
-    public void add(PresencePojo message) {
-        if (latestPresence.containsKey(message.getSender())) {
-            this.presenceList.remove(latestPresence.get(message));
-        }
-        presenceList.add(message);
-        latestPresence.put(message.getSender(), message);
-        ((MainActivity) ctx).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                notifyDataSetChanged();
-            }
-        });
-    }
 
-
-    public void publish(String sender, String message, String receiver, TextInputEditText editText)
-    {
+    public void publish(String sender, String message, String uid, String accepted, String receiver, TextInputEditText editText) {
         final Map<String, String> publish = new HashMap<String, String>();
         publish.put("sender", sender);
         publish.put("receiver", receiver);
         publish.put("message", message);
-        publish.put("uid", null);
-        publish.put("reply", String.valueOf(false));
+        publish.put("uid", uid);
+        publish.put("accepted", accepted);
+        publish.put("reply", String.valueOf(true));
         publish.put("timestamp", new Timestamp(Calendar.getInstance().getTimeInMillis()).toString());
 
         pubNub.publish().channel(receiver).message(publish).async(
@@ -155,30 +124,24 @@ public class DoctorActivityAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return items.size();
     }
 
-    public void clear() {
-        this.presenceList.clear();
-        notifyDataSetChanged();
-    }
-
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
 
         public TextView doctor;
-        public TextView sectie;
-        public TextView status;
+        public TextView mesajPrimit;
         public TextInputEditText mesaj;
-        private TextInputLayout sendIcon;
         public View lyt_parent;
+        public Button refuz;
+        public Button accept;
 
 
         public OriginalViewHolder(@NonNull View itemView) {
             super(itemView);
             doctor = itemView.findViewById(R.id.tv_titlu_doctor);
-            sectie = itemView.findViewById(R.id.tv_sectie);
-            status = itemView.findViewById(R.id.tv_status_doctor);
+            mesajPrimit = itemView.findViewById(R.id.tv_mesaj);
             mesaj = itemView.findViewById(R.id.tiet_mesaj);
-            sendIcon = itemView.findViewById(R.id.et_notificaiton_details);
+            refuz = itemView.findViewById(R.id.button_mesaj_refuz);
+            accept = itemView.findViewById(R.id.button_mesaj_accept);
             lyt_parent = itemView.findViewById(R.id.lyt_parent);
         }
     }
-
 }

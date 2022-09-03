@@ -8,11 +8,15 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
+
+import java.io.StringReader;
 
 import lucrare.dizertatie.dizertatiemobile.api.ApiHelper;
 import lucrare.dizertatie.dizertatiemobile.api.LoginHelper;
 import lucrare.dizertatie.dizertatiemobile.api.service.SpitalApiService;
 import lucrare.dizertatie.dizertatiemobile.model.doctormodel.Doctor;
+import lucrare.dizertatie.dizertatiemobile.model.pacientmodel.FisaMedicala;
 import lucrare.dizertatie.dizertatiemobile.model.request.AuthenticationRequest;
 import lucrare.dizertatie.dizertatiemobile.model.response.AuthenticationResponse;
 import lucrare.dizertatie.dizertatiemobile.util.Constants;
@@ -69,8 +73,11 @@ public class LoginViewModel extends AndroidViewModel {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
                 errorCode.postValue(null);
-                if (response.isSuccessful())
-                    doctorMutableLiveData.postValue(gson.fromJson(response.body().toString(), Doctor.class));
+                if (response.isSuccessful()) {
+                    JsonReader reader = new JsonReader(new StringReader(gson.toJson(response.body())));
+                    reader.setLenient(true);
+                    doctorMutableLiveData.postValue(gson.fromJson(reader, Doctor.class));
+                }
             }
 
             @Override

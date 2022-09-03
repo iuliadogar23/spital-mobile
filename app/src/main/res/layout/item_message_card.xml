@@ -15,13 +15,13 @@
         app:cardElevation="2dp"
         app:cardUseCompatPadding="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_titlu_doctor"
+                android:id="@+id/tv_mesaj"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mesaj de la doctor"
@@ -34,7 +34,7 @@
                 />
 
             <TextView
-                android:id="@+id/tv_sectie"
+                android:id="@+id/tv_titlu_doctor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_large"
@@ -84,6 +84,7 @@
                     android:layout_height="wrap_content">
 
                     <Button
+                        android:id="@+id/button_mesaj_refuz"
                         android:layout_width="wrap_content"
                         android:background="@drawable/btn_rct_rounded_message"
                         android:text="Refuz"
@@ -96,6 +97,7 @@
                         android:layout_width="@dimen/spacing_xxlarge"
                         android:layout_height="0dp" />
                     <Button
+                        android:id="@+id/button_mesaj_accept"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:text="Accept"
@@ -110,7 +112,7 @@
 
             </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

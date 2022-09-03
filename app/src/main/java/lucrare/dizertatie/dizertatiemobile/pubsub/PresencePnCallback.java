@@ -1,9 +1,7 @@
 package lucrare.dizertatie.dizertatiemobile.pubsub;
 
-import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
-
-import androidx.lifecycle.MutableLiveData;
 
 import com.google.gson.Gson;
 import com.pubnub.api.PubNub;
@@ -13,23 +11,22 @@ import com.pubnub.api.models.consumer.pubsub.PNMessageResult;
 import com.pubnub.api.models.consumer.pubsub.PNPresenceEventResult;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import lucrare.dizertatie.dizertatiemobile.adapters.DoctorActivityAdapter;
+import lucrare.dizertatie.dizertatiemobile.model.doctormodel.Doctor;
+import lucrare.dizertatie.dizertatiemobile.ui.mainpage.MainActivity;
 
 public class PresencePnCallback extends SubscribeCallback {
     private static final String TAG = PresencePnCallback.class.getName();
     Gson gson;
-    List<PresencePojo> presencePojos;
-    public MutableLiveData<List<PresencePojo>> syncPresence;
+    Context context;
+    private final DoctorActivityAdapter presenceListAdapter;
 
-    public PresencePnCallback() {
+    public PresencePnCallback(DoctorActivityAdapter presenceListAdapter, Context context) {
         this.gson = new Gson();
-        this.presencePojos = new ArrayList<>();
-        this.syncPresence = new MutableLiveData<>();
+        this.presenceListAdapter = presenceListAdapter;
+        this.context = context;
     }
 
     @Override
@@ -50,23 +47,16 @@ public class PresencePnCallback extends SubscribeCallback {
             e.printStackTrace();
         }
 
-        String sender = presence.getUuid();
-        String presenceString = presence.getEvent().toString();
-        String timestamp = new Timestamp(Calendar.getInstance().getTimeInMillis()).toString();
+        Doctor sender = ((MainActivity) context).getDoctors().stream().filter(d -> d.getId().toString().equals(presence.getUuid())).findFirst().orElse(null);
+        if (sender != null) ;
+        {
+            String presenceString = presence.getEvent();
+            String timestamp = new Timestamp(Calendar.getInstance().getTimeInMillis()).toString();
 
-        PresencePojo pm = new PresencePojo(sender, presenceString, timestamp);
-        addPresenceInList(pm);
+            PresencePojo pm = new PresencePojo(gson.toJson(sender), presenceString, timestamp);
+            presenceListAdapter.add(pm);
+        }
 
     }
 
-    public void addPresenceInList(PresencePojo pojo)
-    {
-            presencePojos.removeIf(p->p.getSender().equals(pojo.getSender()));
-            presencePojos.add(pojo);
-            syncPresence.postValue(presencePojos);
-    }
-
-    public List<PresencePojo> getPresencePojos() {
-        return presencePojos;
-    }
 }

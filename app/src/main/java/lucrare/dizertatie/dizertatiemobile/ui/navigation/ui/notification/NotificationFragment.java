@@ -55,12 +55,12 @@ public class NotificationFragment extends Fragment {
         mViewModel.getAllNotificare().observe(getActivity(), notificareResponse -> {
             if (notificareResponse.getNotificareList() != null)
                 items.addAll(notificareResponse.getNotificareList());
-            adapter = new NotificationListAdapter(items, getContext(), R.layout.item_notificare_card);
+            adapter = new NotificationListAdapter(items, getActivity(), R.layout.item_notificare_card);
             recyclerView.setAdapter(adapter);
-
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.setHasFixedSize(true);
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setHasFixedSize(true);
+
     }
 
 }

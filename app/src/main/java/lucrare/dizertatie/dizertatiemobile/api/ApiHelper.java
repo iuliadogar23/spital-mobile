@@ -3,12 +3,15 @@ package lucrare.dizertatie.dizertatiemobile.api;
 import android.content.Context;
 
 import java.util.List;
+import java.util.function.ObjIntConsumer;
 
 import lucrare.dizertatie.dizertatiemobile.api.service.FisaMedicalaApiService;
+import lucrare.dizertatie.dizertatiemobile.api.service.MesajApiService;
 import lucrare.dizertatie.dizertatiemobile.api.service.NotificareApiService;
 import lucrare.dizertatie.dizertatiemobile.api.service.ResurseApiService;
 import lucrare.dizertatie.dizertatiemobile.api.service.SpitalApiService;
 import lucrare.dizertatie.dizertatiemobile.model.doctormodel.Consult;
+import lucrare.dizertatie.dizertatiemobile.model.notificare.Mesaj;
 import lucrare.dizertatie.dizertatiemobile.model.notificare.Notificare;
 import lucrare.dizertatie.dizertatiemobile.model.pacientmodel.FisaMedicala;
 import lucrare.dizertatie.dizertatiemobile.model.resourcesmodel.Pat;
@@ -31,6 +34,8 @@ public class ApiHelper {
     private NotificareApiService notificareApiService;
 
     private ResurseApiService resurseApiService;
+
+    private MesajApiService mesajApiService;
 
     public ApiHelper(Context context) {
 
@@ -58,6 +63,7 @@ public class ApiHelper {
         fisaMedicalaApiService = retrofit.create(FisaMedicalaApiService.class);
         notificareApiService = retrofit.create(NotificareApiService.class);
         resurseApiService = retrofit.create(ResurseApiService.class);
+        mesajApiService = retrofit.create(MesajApiService.class);
     }
 
     public Call<List<Object>> findConsultsBy(Integer doctorId) {
@@ -113,5 +119,22 @@ public class ApiHelper {
     {
         return fisaMedicalaApiService.getAllFisaMedicalaActive();
     }
+
+    public Call<List<Object>> getMesajeByUid(String uid)
+    {
+        return mesajApiService.getAllByUid(uid);
+    }
+
+    public Call<List<Object>> getMesajeByReceiver(String receiver)
+    {
+        return mesajApiService.getAllByReceiver(receiver);
+    }
+
+    public Call<Object> saveMesaj(Mesaj mesaj)
+    {
+        return mesajApiService.save(mesaj);
+    }
+
+
 
 }

@@ -9,6 +9,7 @@
         <entry key="..\:/Users/iulia.dogar.P4B/Desktop/dizertatie/examples/dizertatiemobile/app/src/main/res/drawable/btn_rct_rounded_message.xml" value="0.2435" />
         <entry key="..\:/Users/iulia.dogar.P4B/Desktop/dizertatie/examples/dizertatiemobile/app/src/main/res/drawable/edit_text_outlined.xml" value="0.142" />
         <entry key="..\:/Users/iulia.dogar.P4B/Desktop/dizertatie/examples/dizertatiemobile/app/src/main/res/drawable/edit_text_round.xml" value="0.1975" />
+        <entry key="..\:/Users/iulia.dogar.P4B/Desktop/dizertatie/examples/dizertatiemobile/app/src/main/res/drawable/ic_arrow_down.xml" value="0.1125" />
         <entry key="..\:/Users/iulia.dogar.P4B/Desktop/dizertatie/examples/dizertatiemobile/app/src/main/res/drawable/ic_cancel.xml" value="0.196" />
         <entry key="..\:/Users/iulia.dogar.P4B/Desktop/dizertatie/examples/dizertatiemobile/app/src/main/res/drawable/ic_check.xml" value="0.2295" />
         <entry key="..\:/Users/iulia.dogar.P4B/Desktop/dizertatie/examples/dizertatiemobile/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2545" />
@@ -37,9 +38,11 @@
         <entry key="..\:/Users/iulia.dogar.P4B/Desktop/dizertatie/examples/dizertatiemobile/app/src/main/res/layout/activity_patient_view.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/iulia.dogar.P4B/Desktop/dizertatie/examples/dizertatiemobile/app/src/main/res/layout/app_bar_general.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/iulia.dogar.P4B/Desktop/dizertatie/examples/dizertatiemobile/app/src/main/res/layout/content_general.xml" value="0.3323076923076923" />
+        <entry key="..\:/Users/iulia.dogar.P4B/Desktop/dizertatie/examples/dizertatiemobile/app/src/main/res/layout/fragment_analysis.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/iulia.dogar.P4B/Desktop/dizertatie/examples/dizertatiemobile/app/src/main/res/layout/fragment_blank.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/iulia.dogar.P4B/Desktop/dizertatie/examples/dizertatiemobile/app/src/main/res/layout/fragment_consult_list.xml" value="0.203125" />
         <entry key="..\:/Users/iulia.dogar.P4B/Desktop/dizertatie/examples/dizertatiemobile/app/src/main/res/layout/fragment_dialog_consult.xml" value="0.26721014492753625" />
+        <entry key="..\:/Users/iulia.dogar.P4B/Desktop/dizertatie/examples/dizertatiemobile/app/src/main/res/layout/fragment_ekg.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/iulia.dogar.P4B/Desktop/dizertatie/examples/dizertatiemobile/app/src/main/res/layout/fragment_gallery.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/iulia.dogar.P4B/Desktop/dizertatie/examples/dizertatiemobile/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/Users/iulia.dogar.P4B/Desktop/dizertatie/examples/dizertatiemobile/app/src/main/res/layout/fragment_hospital_activity.xml" value="0.190625" />

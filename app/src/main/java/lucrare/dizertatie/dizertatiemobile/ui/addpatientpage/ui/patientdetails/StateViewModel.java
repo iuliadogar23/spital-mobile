@@ -31,9 +31,8 @@ public class StateViewModel extends AndroidViewModel {
     private MutableLiveData<SalaOperatie> salaOperatieMutableLiveData;
     private MutableLiveData<FisaMedicala> fisaMedicalaMutableLiveData;
     private Gson gson;
-    private Context context;
 
-    public StateViewModel(@NonNull Application application, Context context) {
+    public StateViewModel(@NonNull Application application) {
         super(application);
         apiHelper = new ApiHelper(application.getApplicationContext());
         errorCode = new MutableLiveData<>();
@@ -41,7 +40,6 @@ public class StateViewModel extends AndroidViewModel {
         salaOperatieMutableLiveData = new MutableLiveData<>();
         fisaMedicalaMutableLiveData = new MutableLiveData<>();
         gson = new Gson();
-        context = context;
     }
 
     public MutableLiveData<Integer> getErrorCode() {
@@ -84,7 +82,7 @@ public class StateViewModel extends AndroidViewModel {
         return salaOperatieMutableLiveData;
     }
 
-    public MutableLiveData<FisaMedicala> saveFisaMedicala(FisaMedicala fisaMedicala)
+    public MutableLiveData<FisaMedicala> saveFisaMedicala(FisaMedicala fisaMedicala, Context context)
     {
         Doctor d = SharedPreferencesUtil.getInstance(context).getDoctor();
         fisaMedicala.setDoctorAsignat(d.getId());

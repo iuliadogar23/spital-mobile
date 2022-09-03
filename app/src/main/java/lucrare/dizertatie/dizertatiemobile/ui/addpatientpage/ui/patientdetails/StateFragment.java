@@ -215,7 +215,7 @@ public class StateFragment extends Fragment {
             salaOperatie.setDoctor(sharedPreferencesUtil.getDoctor().getId());
 
             if (sharedPreferencesUtil.getNewFisa().getNrFisa()==null)
-                sharedPreferencesUtil.setNewFisa(stateViewModel.saveFisaMedicala(sharedPreferencesUtil.getNewFisa()).getValue());
+                sharedPreferencesUtil.setNewFisa(stateViewModel.saveFisaMedicala(sharedPreferencesUtil.getNewFisa(), getContext()).getValue());
             stateViewModel.saveSalaOperatie(salaOperatie);
             Toast.makeText(getContext(), "Solicitarea dumneavoastra a fost efectuata!", Toast.LENGTH_LONG).show();
         });
@@ -239,7 +239,7 @@ public class StateFragment extends Fragment {
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 if (sharedPreferencesUtil.getNewFisa().getNrFisa()==null)
-                    stateViewModel.saveFisaMedicala(sharedPreferencesUtil.getNewFisa()).observe(getActivity(), fisaMedicala -> {
+                    stateViewModel.saveFisaMedicala(sharedPreferencesUtil.getNewFisa(), getContext()).observe(getActivity(), fisaMedicala -> {
                         sharedPreferencesUtil.setNewFisa(fisaMedicala);
                         pat.setNrFisa(fisaMedicala.getNrFisa());
                         pat.setAparatura(true);
@@ -257,7 +257,7 @@ public class StateFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (sharedPreferencesUtil.getNewFisa().getNrFisa()==null)
-                    stateViewModel.saveFisaMedicala(sharedPreferencesUtil.getNewFisa()).observe(getActivity(), fisaMedicala -> {
+                    stateViewModel.saveFisaMedicala(sharedPreferencesUtil.getNewFisa(), getContext()).observe(getActivity(), fisaMedicala -> {
                         sharedPreferencesUtil.setNewFisa(fisaMedicala);
                         pat.setNrFisa(fisaMedicala.getNrFisa());
                         pat.setAparatura(false);

@@ -19,6 +19,7 @@ import lucrare.dizertatie.dizertatiemobile.model.request.AuthenticationRequest;
 import lucrare.dizertatie.dizertatiemobile.ui.mainpage.MainActivity;
 import lucrare.dizertatie.dizertatiemobile.util.Constants;
 import lucrare.dizertatie.dizertatiemobile.util.SharedPreferencesUtil;
+import lucrare.dizertatie.dizertatiemobile.util.async.AsyncLogin;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -31,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel viewModel;
     private SharedPreferencesUtil sharedPreferencesUtil;
+    private AsyncLogin login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         sharedPreferencesUtil = SharedPreferencesUtil.getInstance(this);
-        sharedPreferencesUtil.setNewFisa(null);
-        sharedPreferencesUtil.setToken(null);
-        sharedPreferencesUtil.setDoctor(null);
         viewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         loginButtonClicked(this);
     }

@@ -46,7 +46,7 @@ public class NotificationViewModel extends AndroidViewModel {
                 errorCode.postValue(null);
 
                 notificareResponse.setNotificareList(gson.fromJson(gson.toJson(response.body()), TypeToken.getParameterized(ArrayList.class, Notificare.class).getType()));
-                notificare.setValue(notificareResponse);
+                notificare.postValue(notificareResponse);
             }
 
             @Override

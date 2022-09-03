@@ -1,5 +1,6 @@
 package lucrare.dizertatie.dizertatiemobile.ui.mainpage;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,14 +13,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.pubnub.api.PNConfiguration;
@@ -31,22 +37,29 @@ import com.pubnub.api.models.consumer.presence.PNHereNowOccupantData;
 import com.pubnub.api.models.consumer.presence.PNHereNowResult;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import lucrare.dizertatie.dizertatiemobile.R;
 import lucrare.dizertatie.dizertatiemobile.adapters.DoctorActivityAdapter;
+import lucrare.dizertatie.dizertatiemobile.adapters.DoctorReplyActivityAdapter;
 import lucrare.dizertatie.dizertatiemobile.databinding.ActivityMainBinding;
+import lucrare.dizertatie.dizertatiemobile.model.doctormodel.Doctor;
 import lucrare.dizertatie.dizertatiemobile.pubsub.PresencePnCallback;
 import lucrare.dizertatie.dizertatiemobile.pubsub.PresencePojo;
 import lucrare.dizertatie.dizertatiemobile.pubsub.PubSubPnCallback;
 import lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.consultlist.ConsultListFragment;
 import lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.home.HomeFragment;
+import lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.hospitalactivity.HospitalActivityViewModel;
 import lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.newconsult.NewConsultFragment;
+import lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.notification.MessageFragment;
 import lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.notification.NotificationFragment;
+import lucrare.dizertatie.dizertatiemobile.ui.navigation.ui.notification.NotificationHelper;
 import lucrare.dizertatie.dizertatiemobile.util.Constants;
 import lucrare.dizertatie.dizertatiemobile.util.SharedPreferencesUtil;
 
@@ -59,20 +72,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public DrawerLayout drawerLayout;
     private AppBarConfiguration appBarConfiguration;
     ActivityMainBinding binding;
+    Handler handler;
 
+    DoctorActivityAdapter adapter;
+    DoctorReplyActivityAdapter adapterReply;
+    HospitalActivityViewModel mViewModel;
+    NotificationHelper notificationHelper;
     private PubNub mPubnub_DataStream;
     private PubSubPnCallback mPubSubPnCallback;
 
     private PresencePnCallback mPresencePnCallback;
     SharedPreferencesUtil sharedPreferencesUtil;
+    Activity activity;
+    MutableLiveData<List<Doctor>> doctors = new MutableLiveData<>();
+    Gson gson = new Gson();
+    LifecycleOwner lifecycleOwner;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+        mViewModel = new ViewModelProvider(this).get(HospitalActivityViewModel.class);
         setContentView(binding.getRoot());
+        activity = this;
+        lifecycleOwner = this;
         ButterKnife.bind(this);
         sharedPreferencesUtil = SharedPreferencesUtil.getInstance(this);
+        notificationHelper = new NotificationHelper(this);
+        handler = new Handler();
         initDrawer();
         initToolbar();
         initNavigationMenu();
@@ -121,20 +148,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_message, menu);
         bellMenu = menu;
-        menuItem = bellMenu.findItem(R.id.action_notifications);
-//        menuItem.setOnMenuItemClickListener(item -> {
-//            drawerLayout.closeDrawer(GravityCompat.START);
-//            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_general, new NotificationFragment()).addToBackStack(null).commit();
-//            return true;
-//        });
-        this.mPubSubPnCallback = new PubSubPnCallback(menuItem, getApplicationContext());
-        this.mPresencePnCallback = new PresencePnCallback();
-        sharedPreferencesUtil = SharedPreferencesUtil.getInstance(this);
+        this.menuItem = bellMenu.findItem(R.id.action_notifications);
+
+        sharedPreferencesUtil = SharedPreferencesUtil.getInstance(getApplicationContext());
+        this.mPubSubPnCallback = new PubSubPnCallback(this.menuItem, getApplicationContext(), lifecycleOwner);
         initPubNub();
-        initChannels();
+
+        mViewModel.getAllDoctors().observe(lifecycleOwner, doctorResponse -> {
+            if (doctorResponse != null && doctorResponse.getDoctorList() != null) {
+                doctors.setValue(doctorResponse.getDoctorList());
+                adapter = new DoctorActivityAdapter(doctors.getValue(), activity, R.layout.item_doctor_activity, mPubnub_DataStream, sharedPreferencesUtil);
+
+                mPresencePnCallback = new PresencePnCallback(adapter, activity);
+                initChannels(true);
+            } else {
+                initChannels(false);
+            }
+
+        });
+//        setupPubNub();
 
         return true;
     }
+
+    private void setupPubNub() {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                sharedPreferencesUtil = SharedPreferencesUtil.getInstance(getApplicationContext());
+                initPubNub();
+                mPubSubPnCallback = new PubSubPnCallback(menuItem, getApplicationContext(), lifecycleOwner);
+
+                mViewModel.getAllDoctors().observe(lifecycleOwner, doctorResponse -> {
+                    if (doctorResponse != null && doctorResponse.getDoctorList() != null) {
+                        doctors.setValue(doctorResponse.getDoctorList());
+                        adapter = new DoctorActivityAdapter(doctors.getValue(), activity, R.layout.item_doctor_activity, mPubnub_DataStream, sharedPreferencesUtil);
+
+                        mPresencePnCallback = new PresencePnCallback(adapter, activity);
+                        initChannels(true);
+                    } else {
+                        initChannels(false);
+                    }
+
+                });
+            }
+        });
+    }
+
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -147,8 +207,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int item_id = item.getItemId();
         if (item_id == R.id.action_notifications) {
+            item.setIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_notifications));
             drawerLayout.closeDrawer(GravityCompat.START);
-            getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.nav_host_fragment_content_general, new NotificationFragment()).addToBackStack(null).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_general, new NotificationFragment()).addToBackStack(null).commit();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -161,6 +222,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 getSupportFragmentManager().popBackStack();
                 navigationView.setCheckedItem(R.id.nav_home);
                 getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_content_general, new HomeFragment()).addToBackStack(null).commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
+                break;
+            case R.id.menu_doctor_message:
+                getSupportFragmentManager().popBackStack();
+                getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_content_general, new MessageFragment()).addToBackStack(null).commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
 //            case R.id.menu_patient_register:
@@ -190,7 +256,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
-        if (result != null && result.getContents() != null){
+        if (result != null && result.getContents() != null) {
 
         }
 
@@ -208,31 +274,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        this.mPubnub_Multi = new PubNub(config);
     }
 
-    private void initChannels() {
+    private void initChannels(boolean isPresence) {
         String channel = String.valueOf(sharedPreferencesUtil.getDoctor().getId());
+        List<String> currentChannel = new ArrayList<>();
+        currentChannel.add(channel);
         mPubnub_DataStream.addListener(mPubSubPnCallback);
-        mPubnub_DataStream.addListener(mPresencePnCallback);
-        mPubnub_DataStream.subscribe().channels(Arrays.asList(channel)).execute();
-        this.mPubnub_DataStream.hereNow().channels(Arrays.asList("common")).async(new PNCallback<PNHereNowResult>() {
-            @Override
-            public void onResponse(PNHereNowResult result, PNStatus status) {
-                if (status.isError()) {
-                    return;
-                }
+        mPubnub_DataStream.subscribe().channels(currentChannel).execute();
 
-                try {
-
-                    for (Map.Entry<String, PNHereNowChannelData> entry : result.getChannels().entrySet()) {
-                        for (PNHereNowOccupantData occupant : entry.getValue().getOccupants()) {
-                            MainActivity.this.mPresencePnCallback.addPresenceInList(new PresencePojo(occupant.getUuid(), "join", new Timestamp(Calendar.getInstance().getTimeInMillis()).toString()));
-                        }
+        if (isPresence) {
+            currentChannel.add("common");
+            mPubnub_DataStream.addListener(mPresencePnCallback);
+            mPubnub_DataStream.unsubscribe();
+            mPubnub_DataStream.subscribe().channels(currentChannel).withPresence().execute();
+            this.mPubnub_DataStream.hereNow().channels(currentChannel).async(new PNCallback<PNHereNowResult>() {
+                @Override
+                public void onResponse(PNHereNowResult result, PNStatus status) {
+                    if (status.isError()) {
+                        return;
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
 
-            }
-        });    }
+                    try {
+//publish aici pentru a return in adapter adapter
+                        for (Map.Entry<String, PNHereNowChannelData> entry : result.getChannels().entrySet()) {
+                            for (PNHereNowOccupantData occupant : entry.getValue().getOccupants()) {
+                                Doctor doctorOccupant = doctors.getValue().stream().filter(d -> d.getId().toString().equals(occupant.getUuid())).findFirst().orElse(null);
+                                if (doctorOccupant != null)
+                                    adapter.add(new PresencePojo(
+                                            gson.toJson(doctorOccupant), "join", new Timestamp(Calendar.getInstance().getTimeInMillis()).toString()));
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+        }
+    }
 
     public PubNub getmPubnub_DataStream() {
         return mPubnub_DataStream;
@@ -242,10 +320,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return mPresencePnCallback;
     }
 
-    public void setActionBarTitleFragment()
-    {
+    public DoctorActivityAdapter getAdapter() {
+        return adapter;
+    }
+
+    public void setActionBarTitleFragment() {
         setSupportActionBar(binding.appBarGeneral.toolbar);
         getSupportActionBar().setTitle("");
+    }
+
+    public List<Doctor> getDoctors() {
+        return doctors.getValue();
     }
 
     private void disconnectAndCleanup() {
